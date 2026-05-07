@@ -1,1639 +1,1604 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Salvador — Roteiro Romântico ♥</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-<style>
-  :root {
-    --teal:     #0b4f5e;
-    --teal-l:   #1a7a90;
-    --coral:    #d9694a;
-    --gold:     #c8973a;
-    --gold-l:   #e4ba6a;
-    --cream:    #f8f3ea;
-    --dark:     #12232d;
-    --muted:    #6b8a94;
-    --white:    #ffffff;
-    --card-bg:  #ffffffcc;
-    --shadow:   0 8px 40px rgba(11,79,94,.13);
-    --radius:   18px;
-  }
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'Jost', sans-serif;
-    background: var(--cream);
-    color: var(--dark);
-    overflow-x: hidden;
-  }
-
-  /* ── HERO ── */
-  .hero {
-    position: relative;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    background: linear-gradient(160deg, #0b3a47 0%, #0b4f5e 40%, #1a5c72 70%, #d9694a22 100%);
-  }
-
-  .hero-canvas {
-    position: absolute; inset: 0;
-    pointer-events: none; z-index: 0;
-  }
-
-  .hero-content {
-    position: relative; z-index: 2;
-    text-align: center;
-    padding: 2rem;
-  }
-
-  .hero-eyebrow {
-    font-family: 'Jost', sans-serif;
-    font-weight: 400;
-    font-size: .85rem;
-    letter-spacing: .35em;
-    text-transform: uppercase;
-    color: var(--gold-l);
-    margin-bottom: 1.2rem;
-    opacity: 0;
-    animation: fadeUp .8s .2s forwards;
-  }
-
-  .hero-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    font-size: clamp(3.5rem, 10vw, 7rem);
-    line-height: 1.05;
-    color: var(--white);
-    margin-bottom: .5rem;
-    opacity: 0;
-    animation: fadeUp .9s .4s forwards;
-  }
-
-  .hero-title em {
-    font-style: italic;
-    color: var(--gold-l);
-  }
-
-  .hero-subtitle {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: clamp(1.1rem, 3vw, 1.5rem);
-    color: rgba(255,255,255,.7);
-    margin-bottom: 2.5rem;
-    opacity: 0;
-    animation: fadeUp .9s .6s forwards;
-  }
-
-  .hero-pills {
-    display: flex;
-    flex-wrap: wrap;
-    gap: .7rem;
-    justify-content: center;
-    opacity: 0;
-    animation: fadeUp .9s .8s forwards;
-    margin-bottom: 3rem;
-  }
-
-  .pill {
-    background: rgba(255,255,255,.12);
-    border: 1px solid rgba(255,255,255,.25);
-    color: var(--white);
-    border-radius: 999px;
-    padding: .45rem 1.1rem;
-    font-size: .8rem;
-    letter-spacing: .08em;
-    backdrop-filter: blur(8px);
-  }
-
-  .scroll-hint {
-    opacity: 0;
-    animation: fadeIn 1s 1.5s forwards;
-    color: rgba(255,255,255,.5);
-    font-size: .8rem;
-    letter-spacing: .15em;
-    text-transform: uppercase;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: .5rem;
-  }
-
-  .scroll-hint .line {
-    width: 1px; height: 50px;
-    background: linear-gradient(to bottom, transparent, rgba(255,255,255,.4));
-    animation: lineGrow 1.5s 2s ease-in-out infinite;
-  }
-
-  /* ── WAVES DIVIDER ── */
-  .wave-divider svg { display: block; width: 100%; }
-
-  /* ── NAVIGATION TABS ── */
-  .nav-sticky {
-    position: sticky; top: 0; z-index: 100;
-    background: rgba(248,243,234,.95);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(11,79,94,.1);
-    padding: 0 1rem;
-  }
-
-  .tabs-scroll {
-    display: flex;
-    overflow-x: auto;
-    gap: 0;
-    max-width: 900px;
-    margin: 0 auto;
-    scrollbar-width: none;
-  }
-  .tabs-scroll::-webkit-scrollbar { display: none; }
-
-  .tab-btn {
-    flex-shrink: 0;
-    border: none;
-    background: none;
-    cursor: pointer;
-    padding: 1rem 1.3rem;
-    font-family: 'Jost', sans-serif;
-    font-size: .82rem;
-    font-weight: 500;
-    letter-spacing: .06em;
-    color: var(--muted);
-    text-transform: uppercase;
-    border-bottom: 2px solid transparent;
-    transition: all .25s;
-    white-space: nowrap;
-  }
-
-  .tab-btn:hover { color: var(--teal); }
-  .tab-btn.active {
-    color: var(--coral);
-    border-bottom-color: var(--coral);
-  }
-
-  /* ── SECTIONS ── */
-  .section {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 3.5rem 1.5rem;
-    display: none;
-  }
-  .section.active { display: block; }
-
-  /* ── DAY HEADER ── */
-  .day-header {
-    display: flex;
-    align-items: flex-start;
-    gap: 1.5rem;
-    margin-bottom: 2.5rem;
-    padding: 2rem;
-    background: linear-gradient(135deg, var(--teal) 0%, var(--teal-l) 100%);
-    border-radius: var(--radius);
-    color: var(--white);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .day-header::after {
-    content: '';
-    position: absolute;
-    right: -30px; top: -30px;
-    width: 180px; height: 180px;
-    border-radius: 50%;
-    background: rgba(255,255,255,.06);
-  }
-
-  .day-number {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 4rem;
-    font-weight: 300;
-    line-height: 1;
-    color: var(--gold-l);
-    flex-shrink: 0;
-  }
-
-  .day-info h2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.9rem;
-    font-weight: 400;
-    margin-bottom: .3rem;
-  }
-
-  .day-info p {
-    font-size: .85rem;
-    opacity: .8;
-    line-height: 1.5;
-  }
-
-  .birthday-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: .4rem;
-    background: var(--gold);
-    color: var(--dark);
-    border-radius: 999px;
-    padding: .3rem .9rem;
-    font-size: .78rem;
-    font-weight: 600;
-    margin-top: .6rem;
-    letter-spacing: .04em;
-  }
-
-  /* ── PERIOD BLOCKS ── */
-  .period {
-    margin-bottom: 1.8rem;
-  }
-
-  .period-label {
-    display: flex;
-    align-items: center;
-    gap: .8rem;
-    font-size: .75rem;
-    font-weight: 600;
-    letter-spacing: .2em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 1rem;
-  }
-
-  .period-label::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: rgba(11,79,94,.12);
-  }
-
-  /* ── ACTIVITY CARD ── */
-  .activity-list { display: flex; flex-direction: column; gap: .9rem; }
-
-  .activity-card {
-    background: var(--white);
-    border-radius: 14px;
-    padding: 1.1rem 1.3rem;
-    box-shadow: var(--shadow);
-    display: grid;
-    grid-template-columns: 60px 1fr auto;
-    gap: .5rem 1rem;
-    align-items: start;
-    border-left: 3px solid transparent;
-    transition: transform .2s, box-shadow .2s;
-    animation: fadeUp .5s both;
-  }
-
-  .activity-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 48px rgba(11,79,94,.18);
-  }
-
-  .activity-card.highlight { border-left-color: var(--coral); }
-  .activity-card.romantic  { border-left-color: #e87c9a; }
-  .activity-card.food      { border-left-color: var(--gold); }
-  .activity-card.tip       { border-left-color: var(--teal-l); background: #f0f9fb; }
-
-  .act-time {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.2rem;
-    color: var(--coral);
-    font-weight: 600;
-    grid-row: 1/3;
-    padding-top: .1rem;
-  }
-
-  .act-title {
-    font-weight: 600;
-    font-size: .95rem;
-    color: var(--dark);
-    line-height: 1.3;
-  }
-
-  .act-desc {
-    font-size: .83rem;
-    color: var(--muted);
-    line-height: 1.5;
-    grid-column: 2;
-  }
-
-  .act-icon {
-    font-size: 1.3rem;
-    grid-row: 1/3;
-    padding-top: .05rem;
-  }
-
-  .act-tag {
-    grid-column: 2;
-    display: flex; flex-wrap: wrap; gap: .4rem;
-    margin-top: .3rem;
-  }
-
-  .tag {
-    font-size: .7rem;
-    border-radius: 999px;
-    padding: .2rem .65rem;
-    font-weight: 500;
-    letter-spacing: .03em;
-  }
-  .tag-dist { background: #e8f4f7; color: var(--teal); }
-  .tag-uber { background: #fef4e6; color: #a06800; }
-  .tag-time { background: #f3efe8; color: #7a5a2a; }
-  .tag-price { background: #fdf0f0; color: #c0392b; }
-  .tag-special { background: #fde8f0; color: #b03060; }
-
-  /* ── PLAN B BOX ── */
-  .plan-b {
-    margin-top: 1.5rem;
-    background: linear-gradient(135deg, #f0f9fb, #e8f4f7);
-    border: 1px solid rgba(11,79,94,.15);
-    border-radius: var(--radius);
-    padding: 1.3rem 1.5rem;
-  }
-
-  .plan-b-title {
-    font-size: .8rem;
-    font-weight: 600;
-    letter-spacing: .15em;
-    text-transform: uppercase;
-    color: var(--teal);
-    margin-bottom: .8rem;
-    display: flex; align-items: center; gap: .5rem;
-  }
-
-  .plan-b ul { list-style: none; }
-  .plan-b ul li {
-    font-size: .87rem;
-    color: var(--dark);
-    padding: .35rem 0;
-    border-bottom: 1px solid rgba(11,79,94,.08);
-    display: flex; gap: .6rem;
-  }
-  .plan-b ul li:last-child { border-bottom: none; }
-
-  /* ── TIPS BOX ── */
-  .tips-box {
-    margin-top: 1.5rem;
-    border-radius: var(--radius);
-    overflow: hidden;
-    border: 1px solid rgba(200,151,58,.2);
-  }
-
-  .tips-header {
-    background: linear-gradient(90deg, var(--gold), var(--gold-l));
-    color: var(--dark);
-    padding: .8rem 1.3rem;
-    font-size: .78rem;
-    font-weight: 600;
-    letter-spacing: .15em;
-    text-transform: uppercase;
-    display: flex; align-items: center; gap: .5rem;
-  }
-
-  .tips-body {
-    background: white;
-    padding: 1rem 1.3rem;
-  }
-
-  .tips-body ul { list-style: none; }
-  .tips-body ul li {
-    font-size: .85rem;
-    color: var(--dark);
-    padding: .3rem 0;
-    display: flex; gap: .6rem; align-items: flex-start;
-  }
-
-  /* ── SUMMARY BAR ── */
-  .summary-bar {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-    gap: 1rem;
-    margin-bottom: 2rem;
-  }
-
-  .summary-card {
-    background: var(--white);
-    border-radius: 12px;
-    padding: 1rem 1.1rem;
-    box-shadow: var(--shadow);
-    text-align: center;
-  }
-
-  .summary-card .s-icon { font-size: 1.5rem; margin-bottom: .3rem; }
-  .summary-card .s-label {
-    font-size: .7rem; color: var(--muted);
-    text-transform: uppercase; letter-spacing: .1em;
-    margin-bottom: .2rem;
-  }
-  .summary-card .s-val {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.3rem; font-weight: 600; color: var(--coral);
-  }
-
-  /* ── EXTRAS SECTION ── */
-  .extras-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-  }
-
-  @media(max-width: 600px) { .extras-grid { grid-template-columns: 1fr; } }
-
-  .extras-card {
-    background: var(--white);
-    border-radius: var(--radius);
-    overflow: hidden;
-    box-shadow: var(--shadow);
-  }
-
-  .extras-card-header {
-    padding: 1rem 1.3rem;
-    font-size: .78rem;
-    font-weight: 600;
-    letter-spacing: .15em;
-    text-transform: uppercase;
-    color: var(--white);
-    display: flex; align-items: center; gap: .5rem;
-  }
-
-  .ec-romantic .extras-card-header { background: linear-gradient(90deg, #9b3060, #d4527a); }
-  .ec-mustgo   .extras-card-header { background: linear-gradient(90deg, var(--teal), var(--teal-l)); }
-  .ec-rain     .extras-card-header { background: linear-gradient(90deg, #4a6fa5, #6a8fc8); }
-  .ec-budget   .extras-card-header { background: linear-gradient(90deg, var(--gold), var(--gold-l)); color: var(--dark); }
-
-  .extras-card-body { padding: 1rem 1.3rem; }
-  .extras-card-body ol, .extras-card-body ul { padding-left: 1.2rem; }
-  .extras-card-body li {
-    font-size: .87rem;
-    color: var(--dark);
-    padding: .35rem 0;
-    border-bottom: 1px solid rgba(0,0,0,.05);
-    line-height: 1.5;
-  }
-  .extras-card-body li:last-child { border-bottom: none; }
-  .extras-card-body li strong { color: var(--teal); }
-
-  /* ── BUDGET TABLE ── */
-  .budget-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: .85rem;
-    background: white;
-    border-radius: var(--radius);
-    overflow: hidden;
-    box-shadow: var(--shadow);
-    margin-bottom: 1.5rem;
-  }
-
-  .budget-table thead tr {
-    background: linear-gradient(90deg, var(--teal), var(--teal-l));
-    color: white;
-  }
-
-  .budget-table th {
-    padding: .9rem 1rem;
-    text-align: left;
-    font-weight: 500;
-    font-size: .78rem;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-  }
-
-  .budget-table td {
-    padding: .75rem 1rem;
-    border-bottom: 1px solid rgba(0,0,0,.06);
-    color: var(--dark);
-  }
-
-  .budget-table tr:last-child td { border-bottom: none; }
-
-  .budget-table tr.subtotal td {
-    background: #f0f9fb;
-    font-weight: 600;
-    color: var(--teal);
-    font-size: .9rem;
-  }
-
-  .budget-table tr.total-row td {
-    background: linear-gradient(90deg, var(--coral), #e8876a);
-    color: white;
-    font-weight: 600;
-    font-size: 1rem;
-  }
-
-  .budget-note {
-    font-size: .8rem;
-    color: var(--muted);
-    text-align: center;
-    line-height: 1.6;
-    margin-bottom: 2rem;
-  }
-
-  /* ── ORDER SUGGESTION ── */
-  .order-card {
-    background: var(--white);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    overflow: hidden;
-    margin-bottom: 2rem;
-  }
-
-  .order-header {
-    background: linear-gradient(90deg, var(--dark), #1e3a4a);
-    color: white;
-    padding: 1rem 1.5rem;
-    font-size: .8rem;
-    font-weight: 600;
-    letter-spacing: .15em;
-    text-transform: uppercase;
-  }
-
-  .order-body { padding: 1.3rem 1.5rem; }
-
-  .order-flow {
-    display: flex;
-    flex-wrap: wrap;
-    gap: .5rem;
-    align-items: center;
-    margin-bottom: 1rem;
-  }
-
-  .order-day {
-    background: linear-gradient(135deg, var(--teal), var(--teal-l));
-    color: white;
-    border-radius: 10px;
-    padding: .6rem 1rem;
-    font-size: .85rem;
-    font-weight: 500;
-    text-align: center;
-    min-width: 90px;
-  }
-
-  .order-arrow {
-    font-size: 1.2rem;
-    color: var(--coral);
-    font-weight: bold;
-  }
-
-  .order-rationale {
-    font-size: .83rem;
-    color: var(--muted);
-    line-height: 1.6;
-  }
-
-  /* ── ANIMATIONS ── */
-  @keyframes fadeUp {
-    from { opacity:0; transform:translateY(20px); }
-    to   { opacity:1; transform:translateY(0); }
-  }
-  @keyframes fadeIn {
-    from { opacity:0; }
-    to   { opacity:1; }
-  }
-  @keyframes lineGrow {
-    0%,100% { transform: scaleY(0.5); opacity:.4; }
-    50%      { transform: scaleY(1);   opacity:1;  }
-  }
-  @keyframes float {
-    0%,100% { transform: translateY(0); }
-    50%      { transform: translateY(-8px); }
-  }
-
-  .section .activity-card:nth-child(1) { animation-delay: .05s; }
-  .section .activity-card:nth-child(2) { animation-delay: .10s; }
-  .section .activity-card:nth-child(3) { animation-delay: .15s; }
-  .section .activity-card:nth-child(4) { animation-delay: .20s; }
-  .section .activity-card:nth-child(5) { animation-delay: .25s; }
-
-  /* ── FOOTER ── */
-  footer {
-    background: var(--dark);
-    color: rgba(255,255,255,.5);
-    text-align: center;
-    padding: 2rem 1rem;
-    font-size: .8rem;
-    line-height: 1.7;
-  }
-
-  footer strong { color: var(--gold-l); }
-
-  /* ── OVERVIEW SECTION ── */
-  .overview-intro {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.3rem;
-    font-weight: 300;
-    font-style: italic;
-    color: var(--teal);
-    line-height: 1.7;
-    text-align: center;
-    padding: 1.5rem 2rem;
-    border-top: 1px solid rgba(11,79,94,.15);
-    border-bottom: 1px solid rgba(11,79,94,.15);
-    margin-bottom: 2.5rem;
-  }
-
-  .days-overview {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 1rem;
-    margin-bottom: 2.5rem;
-  }
-
-  .day-overview-card {
-    background: var(--white);
-    border-radius: 14px;
-    padding: 1.3rem 1.2rem;
-    box-shadow: var(--shadow);
-    cursor: pointer;
-    transition: all .25s;
-    border-top: 3px solid var(--teal);
-    text-align: center;
-  }
-
-  .day-overview-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 14px 50px rgba(11,79,94,.2);
-    border-top-color: var(--coral);
-  }
-
-  .day-overview-card.birthday { border-top-color: var(--gold); }
-
-  .doc-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2.5rem;
-    color: var(--coral);
-    font-weight: 300;
-    line-height: 1;
-  }
-
-  .doc-date {
-    font-size: .75rem;
-    color: var(--muted);
-    letter-spacing: .08em;
-    text-transform: uppercase;
-    margin-bottom: .5rem;
-  }
-
-  .doc-title {
-    font-weight: 600;
-    font-size: .9rem;
-    color: var(--dark);
-    margin-bottom: .3rem;
-  }
-
-  .doc-desc {
-    font-size: .78rem;
-    color: var(--muted);
-    line-height: 1.4;
-  }
-
-  .highlight-heart {
-    display: inline-block;
-    color: #e87c9a;
-    animation: float 2s ease-in-out infinite;
-  }
-</style>
-</head>
-<body>
-
-<!-- HERO -->
-<header class="hero">
-  <canvas class="hero-canvas" id="heroCanvas"></canvas>
-  <div class="hero-content">
-    <p class="hero-eyebrow">5 – 9 de junho de 2025 · Barra, Salvador</p>
-    <h1 class="hero-title">Salvador<br><em>com amor</em></h1>
-    <p class="hero-subtitle">Um roteiro feito para dois <span class="highlight-heart">♥</span></p>
-    <div class="hero-pills">
-      <span class="pill">🌊 Praias</span>
-      <span class="pill">🌅 Pôr do Sol</span>
-      <span class="pill">🍛 Gastronomia Baiana</span>
-      <span class="pill">🏛️ Cultura</span>
-      <span class="pill">💛 Aniversário Especial</span>
-      <span class="pill">🌈 Casal LGBTQ+</span>
-    </div>
-    <div class="scroll-hint">
-      <span>explore o roteiro</span>
-      <div class="line"></div>
-    </div>
-  </div>
-</header>
-
-<!-- WAVE DIVIDER -->
-<div class="wave-divider">
-  <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-    <path d="M0,30 C360,80 1080,-20 1440,30 L1440,60 L0,60 Z" fill="#f8f3ea"/>
-  </svg>
-</div>
-
-<!-- STICKY TABS -->
-<nav class="nav-sticky">
-  <div class="tabs-scroll">
-    <button class="tab-btn active" onclick="showTab('overview')">Visão Geral</button>
-    <button class="tab-btn" onclick="showTab('dia5')">Dia 5 · Sex</button>
-    <button class="tab-btn" onclick="showTab('dia6')">Dia 6 · Sáb</button>
-    <button class="tab-btn" onclick="showTab('dia7')">Dia 7 · Dom</button>
-    <button class="tab-btn" onclick="showTab('dia8')">Dia 8 · 🎂 Aniv.</button>
-    <button class="tab-btn" onclick="showTab('dia9')">Dia 9 · Ter</button>
-    <button class="tab-btn" onclick="showTab('extras')">Extras ✨</button>
-    <button class="tab-btn" onclick="showTab('gastos')">Gastos 💰</button>
-  </div>
-</nav>
-
-<!-- ════════════════════════════════════ OVERVIEW ════════════════════════════════════ -->
-<section class="section active" id="tab-overview">
-  <p class="overview-intro">
-    Quatro dias inteiros em Salvador — entre o cheiro de dendê, o azul do Atlântico 
-    e a magia do Nordeste. Um roteiro pensado para vocês dois, do pôr do sol no Farol 
-    até a mesa farta no aniversário.
-  </p>
-
-  <div class="days-overview">
-    <div class="day-overview-card" onclick="showTab('dia5')">
-      <div class="doc-num">5</div>
-      <div class="doc-date">Sexta · Junho</div>
-      <div class="doc-title">Chegada</div>
-      <div class="doc-desc">Check-in noturno, primeiro gostinho da Barra</div>
-    </div>
-    <div class="day-overview-card" onclick="showTab('dia6')">
-      <div class="doc-num">6</div>
-      <div class="doc-date">Sábado · Junho</div>
-      <div class="doc-title">Praia & Farol</div>
-      <div class="doc-desc">Porto da Barra, Farol, Rio Vermelho à noite</div>
-    </div>
-    <div class="day-overview-card" onclick="showTab('dia7')">
-      <div class="doc-num">7</div>
-      <div class="doc-date">Domingo · Junho</div>
-      <div class="doc-title">História & Cultura</div>
-      <div class="doc-desc">Pelourinho, Mercado Modelo, Elevador Lacerda</div>
-    </div>
-    <div class="day-overview-card birthday" onclick="showTab('dia8')">
-      <div class="doc-num">8</div>
-      <div class="doc-date">Segunda · Junho · 🎂</div>
-      <div class="doc-title">Seu Aniversário!</div>
-      <div class="doc-desc">Bonfim, jantar especial, noite inesquecível</div>
-    </div>
-    <div class="day-overview-card" onclick="showTab('dia9')">
-      <div class="doc-num">9</div>
-      <div class="doc-date">Terça · Junho</div>
-      <div class="doc-title">Partida</div>
-      <div class="doc-desc">Saída às 6h — só malas e memórias</div>
-    </div>
-  </div>
-
-  <div class="summary-bar">
-    <div class="summary-card">
-      <div class="s-icon">🏨</div>
-      <div class="s-label">Hospedagem</div>
-      <div class="s-val">R$ 850–1200/n</div>
-    </div>
-    <div class="summary-card">
-      <div class="s-icon">📍</div>
-      <div class="s-label">Base</div>
-      <div class="s-val">Barra</div>
-    </div>
-    <div class="summary-card">
-      <div class="s-icon">🗓️</div>
-      <div class="s-label">Noites</div>
-      <div class="s-val">4 noites</div>
-    </div>
-    <div class="summary-card">
-      <div class="s-icon">💰</div>
-      <div class="s-label">Gasto Est.</div>
-      <div class="s-val">~R$ 4.700</div>
-    </div>
-  </div>
-
-  <div class="tips-box">
-    <div class="tips-header">🌈 Dicas LGBTQ+ em Salvador</div>
-    <div class="tips-body">
-      <ul>
-        <li>✅ Salvador é muito receptiva — especialmente Barra, Rio Vermelho e Pelourinho</li>
-        <li>✅ Rio Vermelho tem ótima cena LGBTQ+, com bares e restaurantes muito acolhedores</li>
-        <li>✅ Na praia de Porto da Barra, o ambiente é aberto e diverso</li>
-        <li>✅ Se quiser explorar a vida noturna LGBTQ+, o bairro da Barra concentra vários pontos</li>
-        <li>✅ Junho é período fora de alta temporada — menos turistas, preços mais acessíveis</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════════════════════ DIA 5 ════════════════════════════════════ -->
-<section class="section" id="tab-dia5">
-  <div class="day-header">
-    <div class="day-number">5</div>
-    <div class="day-info">
-      <h2>Chegada em Salvador</h2>
-      <p>Sexta-feira · Voo pousa às 22h · Hospedagem na Barra<br>Noite leve: check-in e primeiras respiradas de Salvador</p>
-    </div>
-  </div>
-
-  <div class="summary-bar">
-    <div class="summary-card"><div class="s-icon">😴</div><div class="s-label">Ritmo</div><div class="s-val">Leve</div></div>
-    <div class="summary-card"><div class="s-icon">📍</div><div class="s-label">Área</div><div class="s-val">Barra</div></div>
-    <div class="summary-card"><div class="s-icon">💸</div><div class="s-label">Gasto Est.</div><div class="s-val">R$ 80–150</div></div>
-  </div>
-
-  <div class="period">
-    <div class="period-label">🌙 Noite</div>
-    <div class="activity-list">
-      <div class="activity-card highlight">
-        <div class="act-time">22h</div>
-        <div class="act-title">Chegada & Check-in</div>
-        <div class="act-desc">Chegar ao hotel na Barra, fazer check-in com calma, deixar as malas e respirar. Vocês acabaram de chegar!</div>
-        <div class="act-tag">
-          <span class="tag tag-dist">📍 Base: Barra</span>
-          <span class="tag tag-time">⏱ 30 min</span>
-        </div>
-        <div class="act-icon">🏨</div>
-      </div>
-      <div class="activity-card romantic">
-        <div class="act-time">22h30</div>
-        <div class="act-title">Primeiro passeio a pé</div>
-        <div class="act-desc">Caminhar até a orla da Barra — sentir o vento do mar, ouvir o barulho das ondas à noite. Não precisa fazer nada, apenas estar juntos no Salvador.</div>
-        <div class="act-tag">
-          <span class="tag tag-dist">🚶 5 min a pé</span>
-          <span class="tag tag-time">⏱ 30 min</span>
-          <span class="tag tag-special">💑 Romântico</span>
-        </div>
-        <div class="act-icon">🌊</div>
-      </div>
-      <div class="activity-card food">
-        <div class="act-time">23h</div>
-        <div class="act-title">🍻 Drinks de boas-vindas</div>
-        <div class="act-desc"><strong>Opção:</strong> Bar da Barra ou qualquer boteco próximo à orla. Peça uma cerveja gelada ou uma caipirinha de tamarindo e brindem à viagem. Lanche leve se tiverem fome.</div>
-        <div class="act-tag">
-          <span class="tag tag-dist">🚶 5 min a pé</span>
-          <span class="tag tag-uber">💸 R$ 40–70 p/ casal</span>
-        </div>
-        <div class="act-icon">🍹</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="tips-box">
-    <div class="tips-header">💡 Dicas do Dia 5</div>
-    <div class="tips-body">
-      <ul>
-        <li>✈️ Não force programa — vocês estarão cansados do voo. Curta a chegada com leveza.</li>
-        <li>🌙 A orla da Barra é segura e movimentada à noite nos finais de semana.</li>
-        <li>📱 Configure Uber e iFood antes de sair de casa — facilita muito.</li>
-        <li>💧 Compre água e petiscos no mercadinho da vizinhança para o quarto.</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════════════════════ DIA 6 ════════════════════════════════════ -->
-<section class="section" id="tab-dia6">
-  <div class="day-header">
-    <div class="day-number">6</div>
-    <div class="day-info">
-      <h2>Praia, Farol & Rio Vermelho</h2>
-      <p>Sábado · Dia na Barra — praia de manhã, pôr do sol no Farol, jantar em Rio Vermelho</p>
-    </div>
-  </div>
-
-  <div class="summary-bar">
-    <div class="summary-card"><div class="s-icon">☀️</div><div class="s-label">Ritmo</div><div class="s-val">Médio</div></div>
-    <div class="summary-card"><div class="s-icon">🚶</div><div class="s-label">Deslocamento</div><div class="s-val">Quase todo a pé</div></div>
-    <div class="summary-card"><div class="s-icon">💸</div><div class="s-label">Gasto Est.</div><div class="s-val">R$ 350–550</div></div>
-  </div>
-
-  <div class="period">
-    <div class="period-label">🌅 Manhã</div>
-    <div class="activity-list">
-      <div class="activity-card">
-        <div class="act-time">9h</div>
-        <div class="act-title">Café da manhã no hotel ou padaria local</div>
-        <div class="act-desc">Comece o dia com calma. Muitas pousadas na Barra oferecem café incluso. Alternativamente, a <strong>Padaria São Bento</strong> (Barra) tem pão de queijo fresquinho.</div>
-        <div class="act-tag"><span class="tag tag-dist">🚶 2 min a pé</span><span class="tag tag-uber">💸 R$ 20–50 p/ casal</span></div>
-        <div class="act-icon">☕</div>
-      </div>
-      <div class="activity-card highlight">
-        <div class="act-time">10h</div>
-        <div class="act-title">Praia de Porto da Barra</div>
-        <div class="act-desc">A mais bela praia urbana de Salvador — águas calmas e cristalinas, ótimas para banho. Aluguem cadeiras e guarda-sol (R$15–20 p/ pessoa). Mergulhem, se beijem, relaxem.</div>
-        <div class="act-tag">
-          <span class="tag tag-dist">🚶 5–8 min a pé</span>
-          <span class="tag tag-time">⏱ 2h30</span>
-          <span class="tag tag-special">⭐ Imperdível</span>
-        </div>
-        <div class="act-icon">🏖️</div>
-      </div>
-      <div class="activity-card food">
-        <div class="act-time">12h30</div>
-        <div class="act-title">🍽️ Almoço — Frutos do Mar</div>
-        <div class="act-desc"><strong>Restaurante Solar do Unhão</strong> (orla Barra) ou <strong>Bar Jardim dos Namorados</strong> (Porto da Barra). Peça moqueca, peixe grelhado ou acarajé fresquinho. Sabores que Salvador ensina.</div>
-        <div class="act-tag">
-          <span class="tag tag-dist">🚶 5 min a pé da praia</span>
-          <span class="tag tag-uber">💸 R$ 90–150 p/ casal</span>
-        </div>
-        <div class="act-icon">🦐</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="period">
-    <div class="period-label">🌤️ Tarde</div>
-    <div class="activity-list">
-      <div class="activity-card">
-        <div class="act-time">14h30</div>
-        <div class="act-title">Sesta no hotel</div>
-        <div class="act-desc">Depois do almoço e da praia, um descanso de 1h30 é merecido e estratégico — deixa vocês frescos para o pôr do sol e a noite.</div>
-        <div class="act-tag"><span class="tag tag-dist">🚶 5 min a pé</span><span class="tag tag-time">⏱ 1h30</span></div>
-        <div class="act-icon">😴</div>
-      </div>
-      <div class="activity-card highlight">
-        <div class="act-time">16h</div>
-        <div class="act-title">Museu Náutico do Farol da Barra</div>
-        <div class="act-desc">O farol mais famoso do Brasil — construído em 1698! O museu dentro conta a história marítima da Bahia. Vale entrar para subir e ter uma vista panorâmica.</div>
-        <div class="act-tag">
-          <span class="tag tag-dist">🚶 8–10 min a pé</span>
-          <span class="tag tag-uber">💸 ~R$ 20 entrada p/ casal</span>
-          <span class="tag tag-time">⏱ 1h</span>
-        </div>
-        <div class="act-icon">🏛️</div>
-      </div>
-      <div class="activity-card romantic">
-        <div class="act-time">17h30</div>
-        <div class="act-title">Pôr do Sol no Farol da Barra 🌅</div>
-        <div class="act-desc">O mais icônico de Salvador. As pedras em volta do farol ficam cheias de casais ao entardecer. Levem drinks (vinho, cerveja) de algum mercadinho próximo e sentem nas pedras juntos.</div>
-        <div class="act-tag">
-          <span class="tag tag-dist">🚶 No próprio Farol</span>
-          <span class="tag tag-time">⏱ 1h</span>
-          <span class="tag tag-special">💑 Top Romântico</span>
-        </div>
-        <div class="act-icon">🌇</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="period">
-    <div class="period-label">🌙 Noite</div>
-    <div class="activity-list">
-      <div class="activity-card">
-        <div class="act-time">19h</div>
-        <div class="act-title">Uber para Rio Vermelho</div>
-        <div class="act-desc">Bairro boêmio, cheio de restaurantes e bares. Muito acolhedor para casais LGBTQ+. Desloquem com Uber.</div>
-        <div class="act-tag">
-          <span class="tag tag-uber">🚗 ~10 min / R$ 12–18</span>
-        </div>
-        <div class="act-icon">🚗</div>
-      </div>
-      <div class="activity-card food">
-        <div class="act-time">19h30</div>
-        <div class="act-title">🍽️ Jantar em Rio Vermelho</div>
-        <div class="act-desc"><strong>Yemanjá</strong> (clássico e famoso, moqueca premiada) ou <strong>Boteco Brasil</strong> (mais informal, petiscos e chope) — ambos bem recebem casais. Reserve com antecedência no Yemanjá.</div>
-        <div class="act-tag">
-          <span class="tag tag-dist">📍 Rio Vermelho</span>
-          <span class="tag tag-uber">💸 R$ 100–200 p/ casal</span>
-          <span class="tag tag-time">⏱ 1h30</span>
-        </div>
-        <div class="act-icon">🍤</div>
-      </div>
-      <div class="activity-card romantic">
-        <div class="act-time">21h30</div>
-        <div class="act-title">Bar ou passeio noturno em Rio Vermelho</div>
-        <div class="act-desc">Caminhem pela orla de Rio Vermelho, entrem em algum bar com música ao vivo. A cena noturna é movimentada e acolhedora. Voltem de Uber por volta das 23h.</div>
-        <div class="act-tag">
-          <span class="tag tag-uber">🚗 Volta: R$ 12–18</span>
-          <span class="tag tag-uber">💸 R$ 40–80 (drinks)</span>
-        </div>
-        <div class="act-icon">🎶</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="plan-b">
-    <div class="plan-b-title">🌧️ Plano B — Tempo Chuvoso</div>
-    <ul>
-      <li>🏛️ <strong>Manhã:</strong> Shopping Barra (10 min de Uber) — ar condicionado, lojas, cinema</li>
-      <li>🎨 <strong>Tarde:</strong> Museu de Arte Moderna (MAM) — próximo à orla, coberto</li>
-      <li>🍴 <strong>Noite:</strong> Manter o jantar em Rio Vermelho — o clima boêmio fica ainda mais gostoso na chuva</li>
-    </ul>
-  </div>
-
-  <div class="tips-box">
-    <div class="tips-header">💡 Dicas do Dia 6</div>
-    <div class="tips-body">
-      <ul>
-        <li>🧴 Protetor solar é obrigatório — o sol de Salvador é intenso mesmo em junho</li>
-        <li>🍺 Mercadinhos próximos ao Farol vendem drinks gelados a preços ótimos para o pôr do sol</li>
-        <li>📞 Reserve o Yemanjá com 1–2 dias de antecedência, especialmente aos sábados</li>
-        <li>👟 Sandálias confortáveis — você vai caminhar bastante nesse dia</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════════════════════ DIA 7 ════════════════════════════════════ -->
-<section class="section" id="tab-dia7">
-  <div class="day-header">
-    <div class="day-number">7</div>
-    <div class="day-info">
-      <h2>História, Cultura & Cidade Alta</h2>
-      <p>Domingo · Pelourinho, Elevador Lacerda, Mercado Modelo — depois, descanso na Barra</p>
-    </div>
-  </div>
-
-  <div class="summary-bar">
-    <div class="summary-card"><div class="s-icon">🏛️</div><div class="s-label">Ritmo</div><div class="s-val">Ativo</div></div>
-    <div class="summary-card"><div class="s-icon">🚗</div><div class="s-label">Uber Estimado</div><div class="s-val">~R$ 80–100</div></div>
-    <div class="summary-card"><div class="s-icon">💸</div><div class="s-label">Gasto Est.</div><div class="s-val">R$ 300–450</div></div>
-  </div>
-
-  <div class="period">
-    <div class="period-label">🌅 Manhã</div>
-    <div class="activity-list">
-      <div class="activity-card">
-        <div class="act-time">8h30</div>
-        <div class="act-title">Café da manhã no hotel</div>
-        <div class="act-desc">Hoje o dia começa cedo — aproveitem um café reforçado antes de partir para o Centro Histórico.</div>
-        <div class="act-tag"><span class="tag tag-time">⏱ 45 min</span></div>
-        <div class="act-icon">☕</div>
-      </div>
-      <div class="activity-card highlight">
-        <div class="act-time">9h30</div>
-        <div class="act-title">Pelourinho — Centro Histórico</div>
-        <div class="act-desc">Patrimônio da Humanidade pela UNESCO. Casarões coloniais coloridos, igrejas barrocas, ruas de pedra. Visitem a Igreja São Francisco (interior banhado a ouro) e caminhem pelas ruelas.</div>
-        <div class="act-tag">
-          <span class="tag tag-uber">🚗 Uber ~20 min / R$ 22–30</span>
-          <span class="tag tag-time">⏱ 2h</span>
-          <span class="tag tag-special">⭐ Imperdível</span>
-        </div>
-        <div class="act-icon">🏰</div>
-      </div>
-      <div class="activity-card highlight">
-        <div class="act-time">11h</div>
-        <div class="act-title">Elevador Lacerda</div>
-        <div class="act-desc">O símbolo de Salvador — sobe da Cidade Baixa para a Alta em menos de 30 segundos com vista deslumbrante da Baía de Todos-os-Santos. Passagem de R$ 0,15 (sim, quinze centavos!).</div>
-        <div class="act-tag">
-          <span class="tag tag-dist">🚶 10 min do Pelourinho</span>
-          <span class="tag tag-uber">💸 R$ 0,15 por viagem</span>
-          <span class="tag tag-special">⭐ Ícone da cidade</span>
-        </div>
-        <div class="act-icon">🛗</div>
-      </div>
-      <div class="activity-card highlight">
-        <div class="act-time">11h30</div>
-        <div class="act-title">Mercado Modelo</div>
-        <div class="act-desc">Logo na saída do Elevador Lacerda. Artesanato baiano, lembrancinha, arte local — um ótimo lugar para comprar pequenos presentes e absorver a cultura popular da Bahia.</div>
-        <div class="act-tag">
-          <span class="tag tag-dist">🚶 2 min do Elevador</span>
-          <span class="tag tag-time">⏱ 45 min</span>
-          <span class="tag tag-uber">💸 R$ 30–80 em compras</span>
-        </div>
-        <div class="act-icon">🏪</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="period">
-    <div class="period-label">☀️ Tarde</div>
-    <div class="activity-list">
-      <div class="activity-card food">
-        <div class="act-time">13h</div>
-        <div class="act-title">🍽️ Almoço — Restaurante SENAC Pelourinho</div>
-        <div class="act-desc">O melhor custo-benefício da região histórica. Buffet de comida baiana autêntica com vista para o Pelourinho. Por volta de R$ 60–80 por pessoa. Ambiente encantador.</div>
-        <div class="act-tag">
-          <span class="tag tag-dist">📍 Pelourinho</span>
-          <span class="tag tag-uber">💸 R$ 120–160 p/ casal</span>
-          <span class="tag tag-time">⏱ 1h15</span>
-        </div>
-        <div class="act-icon">🍛</div>
-      </div>
-      <div class="activity-card">
-        <div class="act-time">14h30</div>
-        <div class="act-title">Uber de volta para a Barra</div>
-        <div class="act-desc">Vocês já fizeram bastante — hora de relaxar. De volta ao hotel para descansar e se preparar para a noite.</div>
-        <div class="act-tag">
-          <span class="tag tag-uber">🚗 ~20 min / R$ 22–30</span>
-        </div>
-        <div class="act-icon">🚗</div>
-      </div>
-      <div class="activity-card romantic">
-        <div class="act-time">16h30</div>
-        <div class="act-title">Praia da Barra — tarde dourada</div>
-        <div class="act-desc">Uma hora de praia no fim da tarde — água mais tranquila, luz dourada, menos gente. Perfeito para aquele banho refrescante depois de um dia andando muito.</div>
-        <div class="act-tag">
-          <span class="tag tag-dist">🚶 5 min a pé</span>
-          <span class="tag tag-time">⏱ 1h</span>
-          <span class="tag tag-special">💑 Relaxante</span>
-        </div>
-        <div class="act-icon">🌊</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="period">
-    <div class="period-label">🌙 Noite</div>
-    <div class="activity-list">
-      <div class="activity-card food">
-        <div class="act-time">19h30</div>
-        <div class="act-title">🍽️ Jantar na Barra</div>
-        <div class="act-desc"><strong>Carangueijo de Sergipe</strong> (orla Barra) — frutos do mar generosos e gostosos, ambiente descontraído. Ou <strong>Amado</strong> se quiserem algo mais sofisticado (reserve com antecedência).</div>
-        <div class="act-tag">
-          <span class="tag tag-dist">🚶 10–15 min a pé</span>
-          <span class="tag tag-uber">💸 R$ 120–200 p/ casal</span>
-        </div>
-        <div class="act-icon">🦞</div>
-      </div>
-      <div class="activity-card">
-        <div class="act-time">21h30</div>
-        <div class="act-title">Noite tranquila na Barra</div>
-        <div class="act-desc">Amanhã é o aniversário — guardem energia! Passeio na orla, sorvete, dormir cedo. O dia 8 vai ser especial.</div>
-        <div class="act-tag"><span class="tag tag-special">🎂 Reservem forças!</span></div>
-        <div class="act-icon">🌙</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="plan-b">
-    <div class="plan-b-title">🌧️ Plano B — Tempo Chuvoso</div>
-    <ul>
-      <li>🏛️ <strong>Pelourinho</strong> ainda vale muito na chuva — as ruas de pedra molhadas ficam cinematográficas</li>
-      <li>🎨 <strong>Museu Afro-Brasileiro (MAFRO)</strong> — no próprio Pelourinho, excelente acervo coberto</li>
-      <li>🍫 <strong>Chocolates Mendoá</strong> — loja de chocolate artesanal no Pelourinho, ótima para um agrado</li>
-    </ul>
-  </div>
-
-  <div class="tips-box">
-    <div class="tips-header">💡 Dicas do Dia 7</div>
-    <div class="tips-body">
-      <ul>
-        <li>🕘 Chegue ao Pelourinho cedo (antes das 10h) para evitar o pico de turistas</li>
-        <li>👜 Deixem objetos de valor no hotel — leve somente o necessário no centro histórico</li>
-        <li>📸 A luz da manhã no Pelourinho é incrível para fotos</li>
-        <li>🎫 Igreja São Francisco: entrada ~R$ 10 por pessoa, vale muito</li>
-        <li>💡 No Elevador Lacerda, faça a viagem de ida e volta para ver as duas perspectivas</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════════════════════ DIA 8 ════════════════════════════════════ -->
-<section class="section" id="tab-dia8">
-  <div class="day-header">
-    <div class="day-number">8</div>
-    <div class="day-info">
-      <h2>Feliz Aniversário! 🎂</h2>
-      <p>Segunda-feira · O dia mais especial — Bonfim, jantar inesquecível e noite de celebração</p>
-      <div class="birthday-badge">🎉 DIA DE ANIVERSÁRIO — capricha tudo!</div>
-    </div>
-  </div>
-
-  <div class="summary-bar">
-    <div class="summary-card"><div class="s-icon">🎂</div><div class="s-label">Clima</div><div class="s-val">Celebração</div></div>
-    <div class="summary-card"><div class="s-icon">💸</div><div class="s-label">Gasto Est.</div><div class="s-val">R$ 450–700</div></div>
-    <div class="summary-card"><div class="s-icon">⭐</div><div class="s-label">Destaque</div><div class="s-val">Jantar Especial</div></div>
-  </div>
-
-  <div class="period">
-    <div class="period-label">🌅 Manhã — Começando com charme</div>
-    <div class="activity-list">
-      <div class="activity-card romantic">
-        <div class="act-time">9h30</div>
-        <div class="act-title">Café da manhã especial</div>
-        <div class="act-desc">Combinem com o hotel algum elemento surpresa (se possível) — ou vão a uma cafeteria especial. <strong>Sugestão:</strong> Cafeteria Mana (Barra) com bolo, pão de mel e café especial. Comecem o dia devagar.</div>
-        <div class="act-tag">
-          <span class="tag tag-dist">🚶 5–10 min a pé</span>
-          <span class="tag tag-uber">💸 R$ 50–80 p/ casal</span>
-          <span class="tag tag-special">🎂 Comemorem juntos</span>
-        </div>
-        <div class="act-icon">🎂</div>
-      </div>
-      <div class="activity-card highlight">
-        <div class="act-time">11h</div>
-        <div class="act-title">Igreja do Bonfim — pedir uma graça</div>
-        <div class="act-desc">Uma das mais famosas igrejas do Brasil. Amarre uma fita do Bonfim (R$ 2–5) e peça um desejo juntos — tradição baiana de boa sorte para quem ama. Atmosfera mágica e emocionante.</div>
-        <div class="act-tag">
-          <span class="tag tag-uber">🚗 Uber ~25 min / R$ 28–35</span>
-          <span class="tag tag-time">⏱ 1h–1h30</span>
-          <span class="tag tag-special">💑 Romântico & Especial</span>
-        </div>
-        <div class="act-icon">⛪</div>
-      </div>
-      <div class="activity-card">
-        <div class="act-time">12h30</div>
-        <div class="act-title">Uber de volta para a Barra</div>
-        <div class="act-desc">Retorno tranquilo — parem em algum ponto bonito se quiserem uma foto no caminho.</div>
-        <div class="act-tag"><span class="tag tag-uber">🚗 ~25 min / R$ 28–35</span></div>
-        <div class="act-icon">🚗</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="period">
-    <div class="period-label">☀️ Tarde — Relaxamento & Preparação</div>
-    <div class="activity-list">
-      <div class="activity-card romantic">
-        <div class="act-time">13h30</div>
-        <div class="act-title">🍽️ Almoço especial na Barra</div>
-        <div class="act-desc"><strong>Restaurante Trapiche Adelaide</strong> — um dos melhores de Salvador, com vista para a Baía. Comida baiana refinada. Ideal para o almoço de aniversário. Reserve com 2–3 dias de antecedência!</div>
-        <div class="act-tag">
-          <span class="tag tag-dist">🚶 10–15 min a pé</span>
-          <span class="tag tag-uber">💸 R$ 180–280 p/ casal</span>
-          <span class="tag tag-special">🎂 Almoço de aniversário!</span>
-        </div>
-        <div class="act-icon">🍽️</div>
-      </div>
-      <div class="activity-card">
-        <div class="act-time">15h30</div>
-        <div class="act-title">Tarde livre — hotel ou praia</div>
-        <div class="act-desc">Descansem, nadem, durmam um pouco — essa tarde é de vocês. O hotel, a piscina (se houver), ou a praia deserta de segunda-feira são o cenário perfeito.</div>
-        <div class="act-tag"><span class="tag tag-special">💑 Tempo juntos</span></div>
-        <div class="act-icon">😌</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="period">
-    <div class="period-label">🌙 Noite — O Grande Momento ✨</div>
-    <div class="activity-list">
-      <div class="activity-card romantic">
-        <div class="act-time">17h30</div>
-        <div class="act-title">Pôr do sol no Farol com espumante</div>
-        <div class="act-desc">Comprem uma garrafa de espumante gelado antes e vão para as pedras do Farol da Barra. Brindem ao aniversário com o pôr do sol mais bonito de Salvador ao fundo. Façam fotos.</div>
-        <div class="act-tag">
-          <span class="tag tag-dist">🚶 8–10 min a pé</span>
-          <span class="tag tag-uber">💸 ~R$ 30–50 espumante</span>
-          <span class="tag tag-special">💑 Momento especial</span>
-        </div>
-        <div class="act-icon">🥂</div>
-      </div>
-      <div class="activity-card romantic">
-        <div class="act-time">19h30</div>
-        <div class="act-title">🎂 Jantar de Aniversário — Amado</div>
-        <div class="act-desc"><strong>Restaurante Amado</strong> (Av. Lafaiete Coutinho, Contorno) — considerado um dos melhores de Salvador. Culinária baiana contemporânea com vista para a Baía. Avise que é aniversário para um possível mimo especial. <strong>Reserve com antecedência!</strong></div>
-        <div class="act-tag">
-          <span class="tag tag-uber">🚗 Uber ~15 min / R$ 18–25</span>
-          <span class="tag tag-uber">💸 R$ 250–400 p/ casal</span>
-          <span class="tag tag-special">🎂 O jantar do ano!</span>
-          <span class="tag tag-special">⭐ Top restaurante</span>
-        </div>
-        <div class="act-icon">🌟</div>
-      </div>
-      <div class="activity-card food">
-        <div class="act-time">22h</div>
-        <div class="act-title">Sobremesa & Drinks — Sorvete artesanal ou bar especial</div>
-        <div class="act-desc"><strong>Bola de Neve Sorvetes</strong> (Barra) ou algum bar aconchegante na orla para fechar a noite com o pé na areia. Terminem o aniversário de forma simples e feliz.</div>
-        <div class="act-tag">
-          <span class="tag tag-dist">🚶 Próximo ao hotel</span>
-          <span class="tag tag-uber">💸 R$ 40–60</span>
-        </div>
-        <div class="act-icon">🍦</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="plan-b">
-    <div class="plan-b-title">🌧️ Plano B — Chuva no Dia do Aniversário</div>
-    <ul>
-      <li>⛪ <strong>Bonfim:</strong> A experiência é ainda mais mágica com chuva — mantenha no roteiro</li>
-      <li>🛁 <strong>Tarde de spa:</strong> Hotéis de luxo na Barra oferecem day use com spa — presente lindo</li>
-      <li>🌅 <strong>Pôr do sol:</strong> Se chover, façam o brinde no quarto do hotel com vista</li>
-      <li>🍽️ <strong>Jantar Amado:</strong> Mantenha a reserva — o restaurante é fechado e ainda mais romântico na chuva</li>
-    </ul>
-  </div>
-
-  <div class="tips-box">
-    <div class="tips-header">🎂 Dicas Especiais do Aniversário</div>
-    <div class="tips-body">
-      <ul>
-        <li>📞 Reserve o Restaurante Amado com 3–5 dias de antecedência e avise que é aniversário</li>
-        <li>🎁 Esconda um cartão ou presentinho no hotel para deixar na cama ao acordar</li>
-        <li>📸 Contratem um fotógrafo de rua no Farol para a foto do pôr do sol — muitos oferecem e ficam lindas</li>
-        <li>🍾 Segunda-feira o Farol fica menos movimentado — aproveitem a tranquilidade</li>
-        <li>🏨 Vale checar se a pousada faz algum mimo de aniversário — muitas fazem com antecedência</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════════════════════ DIA 9 ════════════════════════════════════ -->
-<section class="section" id="tab-dia9">
-  <div class="day-header">
-    <div class="day-number">9</div>
-    <div class="day-info">
-      <h2>Partida — Até logo, Salvador</h2>
-      <p>Terça-feira · Saída às 6h · Só malas, memórias e saudade</p>
-    </div>
-  </div>
-
-  <div class="period">
-    <div class="period-label">🌙 Madrugada / Partida</div>
-    <div class="activity-list">
-      <div class="activity-card">
-        <div class="act-time">4h30</div>
-        <div class="act-title">Despertar & última olhada</div>
-        <div class="act-desc">Acorde com calma, capriche nas malas na noite anterior. Tome um café rápido — algum hotel oferece café cedo se avisado. Façam uma última respirada do ar salgado da Barra.</div>
-        <div class="act-icon">⏰</div>
-        <div class="act-tag"><span class="tag tag-time">⏱ 30 min</span></div>
-      </div>
-      <div class="activity-card">
-        <div class="act-time">5h15</div>
-        <div class="act-title">Check-out & Uber para o aeroporto</div>
-        <div class="act-desc">Solicite o Uber com antecedência. O Aeroporto de Salvador (Dep. Luís Eduardo Magalhães) fica a ~35–45 min da Barra dependendo do trânsito. Saiam às 5h15 para garantir.</div>
-        <div class="act-tag">
-          <span class="tag tag-uber">🚗 Uber ~35–45 min / R$ 55–75</span>
-        </div>
-        <div class="act-icon">✈️</div>
-      </div>
-      <div class="activity-card romantic">
-        <div class="act-time">No caminho</div>
-        <div class="act-title">Conversa de retorno ❤️</div>
-        <div class="act-desc">No Uber ou no aeroporto — falem sobre o que mais gostaram, o que emocionou, o que querem repetir. Essa viagem vai ficar em vocês por um bom tempo.</div>
-        <div class="act-icon">💬</div>
-        <div class="act-tag"><span class="tag tag-special">💑 Momento especial</span></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="tips-box">
-    <div class="tips-header">💡 Dicas para a Partida</div>
-    <div class="tips-body">
-      <ul>
-        <li>🧳 Faça as malas na noite do dia 8 — você não vai querer acordar cedo E arrumar tudo</li>
-        <li>📱 Reserve o Uber com 5 min de antecedência às 5h10 — trânsito é leve mas demora para confirmar</li>
-        <li>✈️ O aeroporto tem cafeteria aberta cedo — tome um café lá com calma</li>
-        <li>🌅 Se tiver sorte, peguem o nascer do sol pelo vidro do carro</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════════════════════ EXTRAS ════════════════════════════════════ -->
-<section class="section" id="tab-extras">
-  <div class="day-header" style="background: linear-gradient(135deg,#7b2d5e,#a84077);">
-    <div class="day-number" style="color:var(--gold-l);">✨</div>
-    <div class="day-info">
-      <h2>Extras & Highlights</h2>
-      <p>Os melhores momentos, lugares imperdíveis e tudo que você precisa saber</p>
-    </div>
-  </div>
-
-  <div class="extras-grid">
-    <div class="extras-card ec-romantic">
-      <div class="extras-card-header">💑 Top 5 — Mais Românticos</div>
-      <div class="extras-card-body">
-        <ol>
-          <li>🌅 <strong>Pôr do sol no Farol da Barra</strong> — o clássico dos clássicos</li>
-          <li>🥂 <strong>Brinde com espumante no Farol</strong> no aniversário</li>
-          <li>⛪ <strong>Fita do Bonfim</strong> — pedido de desejo juntos</li>
-          <li>🌊 <strong>Praia de Porto da Barra</strong> ao entardecer — luz dourada</li>
-          <li>🍽️ <strong>Jantar no Amado</strong> com vista para a Baía</li>
-        </ol>
-      </div>
-    </div>
-
-    <div class="extras-card ec-mustgo">
-      <div class="extras-card-header">⭐ Top 5 — Lugares Imperdíveis</div>
-      <div class="extras-card-body">
-        <ol>
-          <li>🏖️ <strong>Porto da Barra</strong> — a praia mais bonita de Salvador</li>
-          <li>🏰 <strong>Pelourinho</strong> — patrimônio histórico inigualável</li>
-          <li>🏛️ <strong>Farol da Barra</strong> — ícone absoluto da cidade</li>
-          <li>🛗 <strong>Elevador Lacerda</strong> — vista que ninguém esquece</li>
-          <li>🎶 <strong>Rio Vermelho</strong> — a alma boêmia de Salvador</li>
-        </ol>
-      </div>
-    </div>
-
-    <div class="extras-card ec-rain">
-      <div class="extras-card-header">🌧️ Top 3 — Opções para Chuva</div>
-      <div class="extras-card-body">
-        <ol>
-          <li>🎨 <strong>Museu Afro-Brasileiro (MAFRO)</strong> — acervo incrível no Pelourinho</li>
-          <li>🛍️ <strong>Shopping Barra</strong> — cinema, lojas, gastronomia</li>
-          <li>🍫 <strong>Chocolates Mendoá</strong> + café no Pelourinho — delicioso dia coberto</li>
-        </ol>
-      </div>
-    </div>
-
-    <div class="extras-card ec-budget">
-      <div class="extras-card-header">🔄 Ordem Ideal Alternativa</div>
-      <div class="extras-card-body">
-        <div style="font-size:.85rem; color:var(--dark); line-height:1.6;">
-          <strong>Se quiser reordenar os dias:</strong><br><br>
-          🏅 <strong>Melhor sequência alternativa:</strong><br>
-          Dia 6 → História (Pelourinho no sábado tem mais movimento/animação)<br>
-          Dia 7 → Praia + Farol (domingo mais tranquilo na praia)<br>
-          <br>
-          ✅ <strong>Aniversário (Dia 8) deve sempre ser o penúltimo</strong> — climax da viagem antes da saída.
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════════════════════ GASTOS ════════════════════════════════════ -->
-<section class="section" id="tab-gastos">
-  <div class="day-header" style="background: linear-gradient(135deg, #2d5a1b, #4a8a2b);">
-    <div class="day-number" style="color:var(--gold-l);">💰</div>
-    <div class="day-info">
-      <h2>Estimativa de Gastos</h2>
-      <p>Todos os valores são para o casal, em reais. Baseados em junho de 2025.</p>
-    </div>
-  </div>
-
-  <table class="budget-table">
-    <thead>
-      <tr>
-        <th>Item</th>
-        <th>Localização / Distância</th>
-        <th>Uber (ida)</th>
-        <th>Custo Est. (casal)</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- HOSPEDAGEM -->
-      <tr><td colspan="4" style="background:#f5f5f5;font-weight:600;font-size:.8rem;letter-spacing:.1em;padding:.6rem 1rem;color:#666;">🏨 HOSPEDAGEM (4 noites)</td></tr>
-      <tr>
-        <td>Pousada/Hotel na Barra (4 noites)</td>
-        <td>📍 Barra — base</td>
-        <td>—</td>
-        <td>R$ 3.400–4.800</td>
-      </tr>
-      <tr class="subtotal"><td colspan="3">Subtotal Hospedagem</td><td>R$ 3.400–4.800</td></tr>
-
-      <!-- DIA 5 -->
-      <tr><td colspan="4" style="background:#f5f5f5;font-weight:600;font-size:.8rem;letter-spacing:.1em;padding:.6rem 1rem;color:#666;">📅 DIA 5 — Chegada</td></tr>
-      <tr><td>Drinks/lanche de chegada</td><td>🚶 Orla da Barra (5 min)</td><td>—</td><td>R$ 50–90</td></tr>
-      <tr class="subtotal"><td colspan="3">Subtotal Dia 5</td><td>R$ 50–90</td></tr>
-
-      <!-- DIA 6 -->
-      <tr><td colspan="4" style="background:#f5f5f5;font-weight:600;font-size:.8rem;letter-spacing:.1em;padding:.6rem 1rem;color:#666;">📅 DIA 6 — Praia & Rio Vermelho</td></tr>
-      <tr><td>Cadeiras/guarda-sol praia</td><td>🚶 Porto da Barra (5 min)</td><td>—</td><td>R$ 30–40</td></tr>
-      <tr><td>Museu Náutico (entradas)</td><td>🚶 Farol da Barra (8 min)</td><td>—</td><td>R$ 20–30</td></tr>
-      <tr><td>Almoço — frutos do mar</td><td>🚶 Barra (5 min)</td><td>—</td><td>R$ 90–150</td></tr>
-      <tr><td>Drinks pôr do sol (Farol)</td><td>🚶 Farol (10 min)</td><td>—</td><td>R$ 30–50</td></tr>
-      <tr><td>Uber Barra → Rio Vermelho (ida)</td><td>🚗 10 min</td><td>R$ 12–18</td><td>R$ 12–18</td></tr>
-      <tr><td>Jantar em Rio Vermelho (Yemanjá)</td><td>📍 Rio Vermelho</td><td>—</td><td>R$ 120–200</td></tr>
-      <tr><td>Drinks + Uber volta Rio Vermelho</td><td>🚗 10 min</td><td>R$ 12–18</td><td>R$ 50–90</td></tr>
-      <tr class="subtotal"><td colspan="3">Subtotal Dia 6</td><td>R$ 354–578</td></tr>
-
-      <!-- DIA 7 -->
-      <tr><td colspan="4" style="background:#f5f5f5;font-weight:600;font-size:.8rem;letter-spacing:.1em;padding:.6rem 1rem;color:#666;">📅 DIA 7 — Pelourinho & Cultura</td></tr>
-      <tr><td>Uber Barra → Pelourinho</td><td>🚗 20 min</td><td>R$ 22–30</td><td>R$ 22–30</td></tr>
-      <tr><td>Igreja São Francisco (entrada)</td><td>📍 Pelourinho</td><td>—</td><td>R$ 20</td></tr>
-      <tr><td>Elevador Lacerda (2 viagens)</td><td>🚶 10 min do Pelo</td><td>—</td><td>R$ 0,60</td></tr>
-      <tr><td>Artesanato no Mercado Modelo</td><td>🚶 2 min do Elevador</td><td>—</td><td>R$ 30–80</td></tr>
-      <tr><td>Almoço SENAC Pelourinho</td><td>📍 Pelourinho</td><td>—</td><td>R$ 120–160</td></tr>
-      <tr><td>Uber Pelourinho → Barra</td><td>🚗 20 min</td><td>R$ 22–30</td><td>R$ 22–30</td></tr>
-      <tr><td>Jantar na Barra</td><td>🚶 10–15 min a pé</td><td>—</td><td>R$ 120–200</td></tr>
-      <tr class="subtotal"><td colspan="3">Subtotal Dia 7</td><td>R$ 334–520</td></tr>
-
-      <!-- DIA 8 -->
-      <tr><td colspan="4" style="background:#f5f5f5;font-weight:600;font-size:.8rem;letter-spacing:.1em;padding:.6rem 1rem;color:#666;">📅 DIA 8 — Aniversário 🎂</td></tr>
-      <tr><td>Café da manhã especial</td><td>🚶 Barra (5 min)</td><td>—</td><td>R$ 60–90</td></tr>
-      <tr><td>Uber Barra → Bonfim (ida e volta)</td><td>🚗 25 min cada</td><td>R$ 28–35</td><td>R$ 56–70</td></tr>
-      <tr><td>Fitas do Bonfim + entrada</td><td>📍 Igreja do Bonfim</td><td>—</td><td>R$ 10–20</td></tr>
-      <tr><td>Almoço Trapiche Adelaide</td><td>🚶 Barra (15 min)</td><td>—</td><td>R$ 180–280</td></tr>
-      <tr><td>Espumante pôr do sol (Farol)</td><td>🚶 Farol (10 min)</td><td>—</td><td>R$ 35–60</td></tr>
-      <tr><td>Uber Barra → Amado (ida e volta)</td><td>🚗 15 min</td><td>R$ 18–25</td><td>R$ 36–50</td></tr>
-      <tr><td>🌟 Jantar Amado (aniversário)</td><td>📍 Av. Contorno</td><td>—</td><td>R$ 280–420</td></tr>
-      <tr><td>Sorvete/drinks pós-jantar</td><td>🚶 Barra</td><td>—</td><td>R$ 40–60</td></tr>
-      <tr class="subtotal"><td colspan="3">Subtotal Dia 8</td><td>R$ 697–1.050</td></tr>
-
-      <!-- DIA 9 -->
-      <tr><td colspan="4" style="background:#f5f5f5;font-weight:600;font-size:.8rem;letter-spacing:.1em;padding:.6rem 1rem;color:#666;">📅 DIA 9 — Partida</td></tr>
-      <tr><td>Uber Barra → Aeroporto</td><td>🚗 35–45 min</td><td>R$ 55–75</td><td>R$ 55–75</td></tr>
-      <tr class="subtotal"><td colspan="3">Subtotal Dia 9</td><td>R$ 55–75</td></tr>
-
-      <!-- TOTAL -->
-      <tr class="total-row">
-        <td colspan="3">💰 TOTAL ESTIMADO (sem hospedagem)</td>
-        <td>R$ 1.490–2.313</td>
-      </tr>
-      <tr class="total-row" style="background: linear-gradient(90deg,#0b4f5e,#1a7a90);">
-        <td colspan="3">🏆 TOTAL GERAL (com hospedagem)</td>
-        <td>R$ 4.890–7.113</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <p class="budget-note">
-    ⚠️ Valores são estimativas para junho de 2025 e podem variar. Preços de Uber dependem de horário e demanda.<br>
-    💡 <strong>Para economizar:</strong> Substitua o Amado por um restaurante mais acessível em Rio Vermelho (saving R$150–200).<br>
-    💡 <strong>Para gastar melhor:</strong> O jantar no Amado no aniversário vale cada centavo — priorize-o.
-  </p>
-
-  <div class="order-card">
-    <div class="order-header">🔄 Sugestão de Ordem Ideal dos Dias</div>
-    <div class="order-body">
-      <div class="order-flow">
-        <div class="order-day">Dia 6<br><small>Pelourinho</small></div>
-        <div class="order-arrow">→</div>
-        <div class="order-day">Dia 7<br><small>Praia & Farol</small></div>
-        <div class="order-arrow">→</div>
-        <div class="order-day">Dia 8<br><small>🎂 Aniversário</small></div>
-      </div>
-      <p class="order-rationale">
-        <strong>Por quê essa ordem?</strong> Começar pelo Pelourinho no sábado (dia 6) é vantajoso porque há mais movimento cultural, músicos nas ruas e lojas abertas. O domingo fica para a praia — que fica mais tranquila e vazia aos domingos. O aniversário (segunda) fica estrategicamente como clímax da viagem: menos turistas, Bonfim sem fila, Farol tranquilo, reserva no Amado mais fácil de conseguir, e a partida no dia seguinte preserva a energia.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div>✨ Roteiro criado com carinho para vocês dois ✨</div>
-  <div>Salvador — <strong>Barra</strong> · Junho 2025</div>
-  <div style="margin-top:.5rem; font-size:.75rem;">🌊 Porto da Barra · 🏛️ Pelourinho · 🌅 Farol · 🛗 Lacerda · ⛪ Bonfim · 🎶 Rio Vermelho</div>
-  <div style="margin-top:.5rem; font-size:.73rem; opacity:.7;">Bom Bom Viagem! 🌈❤️</div>
-</footer>
-
-<script>
-  // ── TAB NAVIGATION ──
-  function showTab(id) {
-    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById('tab-' + id).classList.add('active');
-
-    const tabMap = {
-      overview: 0, dia5: 1, dia6: 2, dia7: 3, dia8: 4, dia9: 5, extras: 6, gastos: 7
-    };
-    document.querySelectorAll('.tab-btn')[tabMap[id]].classList.add('active');
-    window.scrollTo({ top: document.querySelector('.nav-sticky').offsetTop, behavior: 'smooth' });
-
-    // Re-trigger animations
-    document.querySelectorAll(`#tab-${id} .activity-card`).forEach((el, i) => {
-      el.style.animation = 'none';
-      el.offsetHeight;
-      el.style.animation = `fadeUp .5s ${i * 0.07}s both`;
-    });
-  }
-
-  // ── HERO CANVAS ANIMATION ──
-  const canvas = document.getElementById('heroCanvas');
-  const ctx = canvas.getContext('2d');
-  let particles = [];
-
-  function resize() {
-    canvas.width = window.innerWidth;
-    canvas.height = canvas.parentElement.offsetHeight;
-  }
-
-  class Particle {
-    constructor() { this.reset(); }
-    reset() {
-      this.x = Math.random() * canvas.width;
-      this.y = Math.random() * canvas.height;
-      this.r = Math.random() * 1.5 + 0.3;
-      this.vx = (Math.random() - 0.5) * 0.3;
-      this.vy = -Math.random() * 0.4 - 0.1;
-      this.alpha = Math.random() * 0.5 + 0.1;
-      this.color = Math.random() > 0.5 ? '#c8973a' : '#ffffff';
-    }
-    update() {
-      this.x += this.vx;
-      this.y += this.vy;
-      if (this.y < -5 || this.x < -5 || this.x > canvas.width + 5) this.reset();
-    }
-    draw() {
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-      ctx.fillStyle = this.color;
-      ctx.globalAlpha = this.alpha;
-      ctx.fill();
-    }
-  }
-
-  function initParticles() {
-    particles = Array.from({ length: 80 }, () => new Particle());
-  }
-
-  function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.globalAlpha = 1;
-
-    // Draw wave-like lines
-    ctx.globalAlpha = 0.04;
-    for (let i = 0; i < 5; i++) {
-      ctx.beginPath();
-      ctx.strokeStyle = '#c8973a';
-      ctx.lineWidth = 1;
-      const t = Date.now() / 3000 + i;
-      for (let x = 0; x < canvas.width; x += 5) {
-        const y = canvas.height * 0.6 + Math.sin(x / 120 + t) * 40 + i * 30;
-        x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-      }
-      ctx.stroke();
-    }
-
-    particles.forEach(p => { p.update(); p.draw(); });
-    ctx.globalAlpha = 1;
-    requestAnimationFrame(animate);
-  }
-
-  resize();
-  initParticles();
-  animate();
-  window.addEventListener('resize', () => { resize(); initParticles(); });
-</script>
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Salvador — Roteiro Romântico ♥</title>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+		<!-- HERO -->
+		<header class="hero">
+			<canvas class="hero-canvas" id="heroCanvas"></canvas>
+			<div class="hero-content">
+				<p class="hero-eyebrow">5 – 9 de junho de 2025 · Barra, Salvador</p>
+				<h1 class="hero-title">Salvador<br /><em>com amor</em></h1>
+				<p class="hero-subtitle">
+					Um roteiro feito para dois <span class="highlight-heart">♥</span>
+				</p>
+				<div class="hero-pills">
+					<span class="pill">🌊 Praias</span>
+					<span class="pill">🌅 Pôr do Sol</span>
+					<span class="pill">🍛 Gastronomia Baiana</span>
+					<span class="pill">🏛️ Cultura</span>
+					<span class="pill">💛 Aniversário Especial</span>
+					<span class="pill">🌈 Casal LGBTQ+</span>
+				</div>
+				<div class="scroll-hint">
+					<span>explore o roteiro</span>
+					<div class="line"></div>
+				</div>
+			</div>
+		</header>
+
+		<!-- WAVE DIVIDER -->
+		<div class="wave-divider">
+			<svg
+				viewBox="0 0 1440 60"
+				xmlns="http://www.w3.org/2000/svg"
+				preserveAspectRatio="none"
+			>
+				<path
+					d="M0,30 C360,80 1080,-20 1440,30 L1440,60 L0,60 Z"
+					fill="#f8f3ea"
+				/>
+			</svg>
+		</div>
+
+		<!-- STICKY TABS -->
+		<nav class="nav-sticky">
+			<div class="tabs-scroll">
+				<button class="tab-btn active" onclick="showTab('overview')">
+					Visão Geral
+				</button>
+				<button class="tab-btn" onclick="showTab('dia5')">Dia 5 · Sex</button>
+				<button class="tab-btn" onclick="showTab('dia6')">Dia 6 · Sáb</button>
+				<button class="tab-btn" onclick="showTab('dia7')">Dia 7 · Dom</button>
+				<button class="tab-btn" onclick="showTab('dia8')">
+					Dia 8 · 🎂 Aniv.
+				</button>
+				<button class="tab-btn" onclick="showTab('dia9')">Dia 9 · Ter</button>
+				<button class="tab-btn" onclick="showTab('extras')">Extras ✨</button>
+				<button class="tab-btn" onclick="showTab('gastos')">Gastos 💰</button>
+			</div>
+		</nav>
+
+		<!-- ════════════════════════════════════ OVERVIEW ════════════════════════════════════ -->
+		<section class="section active" id="tab-overview">
+			<p class="overview-intro">
+				Quatro dias inteiros em Salvador — entre o cheiro de dendê, o azul do
+				Atlântico e a magia do Nordeste. Um roteiro pensado para vocês dois, do
+				pôr do sol no Farol até a mesa farta no aniversário.
+			</p>
+
+			<div class="days-overview">
+				<div class="day-overview-card" onclick="showTab('dia5')">
+					<div class="doc-num">5</div>
+					<div class="doc-date">Sexta · Junho</div>
+					<div class="doc-title">Chegada</div>
+					<div class="doc-desc">
+						Check-in noturno, primeiro gostinho da Barra
+					</div>
+				</div>
+				<div class="day-overview-card" onclick="showTab('dia6')">
+					<div class="doc-num">6</div>
+					<div class="doc-date">Sábado · Junho</div>
+					<div class="doc-title">Praia & Farol</div>
+					<div class="doc-desc">
+						Porto da Barra, Farol, Rio Vermelho à noite
+					</div>
+				</div>
+				<div class="day-overview-card" onclick="showTab('dia7')">
+					<div class="doc-num">7</div>
+					<div class="doc-date">Domingo · Junho</div>
+					<div class="doc-title">História & Cultura</div>
+					<div class="doc-desc">
+						Pelourinho, Mercado Modelo, Elevador Lacerda
+					</div>
+				</div>
+				<div class="day-overview-card birthday" onclick="showTab('dia8')">
+					<div class="doc-num">8</div>
+					<div class="doc-date">Segunda · Junho · 🎂</div>
+					<div class="doc-title">Seu Aniversário!</div>
+					<div class="doc-desc">
+						Bonfim, jantar especial, noite inesquecível
+					</div>
+				</div>
+				<div class="day-overview-card" onclick="showTab('dia9')">
+					<div class="doc-num">9</div>
+					<div class="doc-date">Terça · Junho</div>
+					<div class="doc-title">Partida</div>
+					<div class="doc-desc">Saída às 6h — só malas e memórias</div>
+				</div>
+			</div>
+
+			<div class="summary-bar">
+				<div class="summary-card">
+					<div class="s-icon">🏨</div>
+					<div class="s-label">Hospedagem</div>
+					<div class="s-val">R$ 850–1200/n</div>
+				</div>
+				<div class="summary-card">
+					<div class="s-icon">📍</div>
+					<div class="s-label">Base</div>
+					<div class="s-val">Barra</div>
+				</div>
+				<div class="summary-card">
+					<div class="s-icon">🗓️</div>
+					<div class="s-label">Noites</div>
+					<div class="s-val">4 noites</div>
+				</div>
+				<div class="summary-card">
+					<div class="s-icon">💰</div>
+					<div class="s-label">Gasto Est.</div>
+					<div class="s-val">~R$ 4.700</div>
+				</div>
+			</div>
+
+			<div class="tips-box">
+				<div class="tips-header">🌈 Dicas LGBTQ+ em Salvador</div>
+				<div class="tips-body">
+					<ul>
+						<li>
+							✅ Salvador é muito receptiva — especialmente Barra, Rio Vermelho
+							e Pelourinho
+						</li>
+						<li>
+							✅ Rio Vermelho tem ótima cena LGBTQ+, com bares e restaurantes
+							muito acolhedores
+						</li>
+						<li>
+							✅ Na praia de Porto da Barra, o ambiente é aberto e diverso
+						</li>
+						<li>
+							✅ Se quiser explorar a vida noturna LGBTQ+, o bairro da Barra
+							concentra vários pontos
+						</li>
+						<li>
+							✅ Junho é período fora de alta temporada — menos turistas, preços
+							mais acessíveis
+						</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+
+		<!-- ════════════════════════════════════ DIA 5 ════════════════════════════════════ -->
+		<section class="section" id="tab-dia5">
+			<div class="day-header">
+				<div class="day-number">5</div>
+				<div class="day-info">
+					<h2>Chegada em Salvador</h2>
+					<p>
+						Sexta-feira · Voo pousa às 22h · Hospedagem na Barra<br />Noite
+						leve: check-in e primeiras respiradas de Salvador
+					</p>
+				</div>
+			</div>
+
+			<div class="summary-bar">
+				<div class="summary-card">
+					<div class="s-icon">😴</div>
+					<div class="s-label">Ritmo</div>
+					<div class="s-val">Leve</div>
+				</div>
+				<div class="summary-card">
+					<div class="s-icon">📍</div>
+					<div class="s-label">Área</div>
+					<div class="s-val">Barra</div>
+				</div>
+				<div class="summary-card">
+					<div class="s-icon">💸</div>
+					<div class="s-label">Gasto Est.</div>
+					<div class="s-val">R$ 80–150</div>
+				</div>
+			</div>
+
+			<div class="period">
+				<div class="period-label">🌙 Noite</div>
+				<div class="activity-list">
+					<div class="activity-card highlight">
+						<div class="act-time">22h</div>
+						<div class="act-title">Chegada & Check-in</div>
+						<div class="act-desc">
+							Chegar ao hotel na Barra, fazer check-in com calma, deixar as
+							malas e respirar. Vocês acabaram de chegar!
+						</div>
+						<div class="act-tag">
+							<span class="tag tag-dist">📍 Base: Barra</span>
+							<span class="tag tag-time">⏱ 30 min</span>
+						</div>
+						<div class="act-icon">🏨</div>
+					</div>
+					<div class="activity-card romantic">
+						<div class="act-time">22h30</div>
+						<div class="act-title">Primeiro passeio a pé</div>
+						<div class="act-desc">
+							Caminhar até a orla da Barra — sentir o vento do mar, ouvir o
+							barulho das ondas à noite. Não precisa fazer nada, apenas estar
+							juntos no Salvador.
+						</div>
+						<div class="act-tag">
+							<span class="tag tag-dist">🚶 5 min a pé</span>
+							<span class="tag tag-time">⏱ 30 min</span>
+							<span class="tag tag-special">💑 Romântico</span>
+						</div>
+						<div class="act-icon">🌊</div>
+					</div>
+					<div class="activity-card food">
+						<div class="act-time">23h</div>
+						<div class="act-title">🍻 Drinks de boas-vindas</div>
+						<div class="act-desc">
+							<strong>Opção:</strong> Bar da Barra ou qualquer boteco próximo à
+							orla. Peça uma cerveja gelada ou uma caipirinha de tamarindo e
+							brindem à viagem. Lanche leve se tiverem fome.
+						</div>
+						<div class="act-tag">
+							<span class="tag tag-dist">🚶 5 min a pé</span>
+							<span class="tag tag-uber">💸 R$ 40–70 p/ casal</span>
+						</div>
+						<div class="act-icon">🍹</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="tips-box">
+				<div class="tips-header">💡 Dicas do Dia 5</div>
+				<div class="tips-body">
+					<ul>
+						<li>
+							✈️ Não force programa — vocês estarão cansados do voo. Curta a
+							chegada com leveza.
+						</li>
+						<li>
+							🌙 A orla da Barra é segura e movimentada à noite nos finais de
+							semana.
+						</li>
+						<li>
+							📱 Configure Uber e iFood antes de sair de casa — facilita muito.
+						</li>
+						<li>
+							💧 Compre água e petiscos no mercadinho da vizinhança para o
+							quarto.
+						</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+
+		<!-- ════════════════════════════════════ DIA 6 ════════════════════════════════════ -->
+		<section class="section" id="tab-dia6">
+			<div class="day-header">
+				<div class="day-number">6</div>
+				<div class="day-info">
+					<h2>Praia, Farol & Rio Vermelho</h2>
+					<p>
+						Sábado · Dia na Barra — praia de manhã, pôr do sol no Farol, jantar
+						em Rio Vermelho
+					</p>
+				</div>
+			</div>
+
+			<div class="summary-bar">
+				<div class="summary-card">
+					<div class="s-icon">☀️</div>
+					<div class="s-label">Ritmo</div>
+					<div class="s-val">Médio</div>
+				</div>
+				<div class="summary-card">
+					<div class="s-icon">🚶</div>
+					<div class="s-label">Deslocamento</div>
+					<div class="s-val">Quase todo a pé</div>
+				</div>
+				<div class="summary-card">
+					<div class="s-icon">💸</div>
+					<div class="s-label">Gasto Est.</div>
+					<div class="s-val">R$ 350–550</div>
+				</div>
+			</div>
+
+			<div class="period">
+				<div class="period-label">🌅 Manhã</div>
+				<div class="activity-list">
+					<div class="activity-card">
+						<div class="act-time">9h</div>
+						<div class="act-title">Café da manhã no hotel ou padaria local</div>
+						<div class="act-desc">
+							Comece o dia com calma. Muitas pousadas na Barra oferecem café
+							incluso. Alternativamente, a
+							<strong>Padaria São Bento</strong> (Barra) tem pão de queijo
+							fresquinho.
+						</div>
+						<div class="act-tag">
+							<span class="tag tag-dist">🚶 2 min a pé</span
+							><span class="tag tag-uber">💸 R$ 20–50 p/ casal</span>
+						</div>
+						<div class="act-icon">☕</div>
+					</div>
+					<div class="activity-card highlight">
+						<div class="act-time">10h</div>
+						<div class="act-title">Praia de Porto da Barra</div>
+						<div class="act-desc">
+							A mais bela praia urbana de Salvador — águas calmas e cristalinas,
+							ótimas para banho. Aluguem cadeiras e guarda-sol (R$15–20 p/
+							pessoa). Mergulhem, se beijem, relaxem.
+						</div>
+						<div class="act-tag">
+							<span class="tag tag-dist">🚶 5–8 min a pé</span>
+							<span class="tag tag-time">⏱ 2h30</span>
+							<span class="tag tag-special">⭐ Imperdível</span>
+						</div>
+						<div class="act-icon">🏖️</div>
+					</div>
+					<div class="activity-card food">
+						<div class="act-time">12h30</div>
+						<div class="act-title">🍽️ Almoço — Frutos do Mar</div>
+						<div class="act-desc">
+							<strong>Restaurante Solar do Unhão</strong> (orla Barra) ou
+							<strong>Bar Jardim dos Namorados</strong> (Porto da Barra). Peça
+							moqueca, peixe grelhado ou acarajé fresquinho. Sabores que
+							Salvador ensina.
+						</div>
+						<div class="act-tag">
+							<span class="tag tag-dist">🚶 5 min a pé da praia</span>
+							<span class="tag tag-uber">💸 R$ 90–150 p/ casal</span>
+						</div>
+						<div class="act-icon">🦐</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="period">
+				<div class="period-label">🌤️ Tarde</div>
+				<div class="activity-list">
+					<div class="activity-card">
+						<div class="act-time">14h30</div>
+						<div class="act-title">Sesta no hotel</div>
+						<div class="act-desc">
+							Depois do almoço e da praia, um descanso de 1h30 é merecido e
+							estratégico — deixa vocês frescos para o pôr do sol e a noite.
+						</div>
+						<div class="act-tag">
+							<span class="tag tag-dist">🚶 5 min a pé</span
+							><span class="tag tag-time">⏱ 1h30</span>
+						</div>
+						<div class="act-icon">😴</div>
+					</div>
+					<div class="activity-card highlight">
+						<div class="act-time">16h</div>
+						<div class="act-title">Museu Náutico do Farol da Barra</div>
+						<div class="act-desc">
+							O farol mais famoso do Brasil — construído em 1698! O museu dentro
+							conta a história marítima da Bahia. Vale entrar para subir e ter
+							uma vista panorâmica.
+						</div>
+						<div class="act-tag">
+							<span class="tag tag-dist">🚶 8–10 min a pé</span>
+							<span class="tag tag-uber">💸 ~R$ 20 entrada p/ casal</span>
+							<span class="tag tag-time">⏱ 1h</span>
+						</div>
+						<div class="act-icon">🏛️</div>
+					</div>
+					<div class="activity-card romantic">
+						<div class="act-time">17h30</div>
+						<div class="act-title">Pôr do Sol no Farol da Barra 🌅</div>
+						<div class="act-desc">
+							O mais icônico de Salvador. As pedras em volta do farol ficam
+							cheias de casais ao entardecer. Levem drinks (vinho, cerveja) de
+							algum mercadinho próximo e sentem nas pedras juntos.
+						</div>
+						<div class="act-tag">
+							<span class="tag tag-dist">🚶 No próprio Farol</span>
+							<span class="tag tag-time">⏱ 1h</span>
+							<span class="tag tag-special">💑 Top Romântico</span>
+						</div>
+						<div class="act-icon">🌇</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="period">
+				<div class="period-label">🌙 Noite</div>
+				<div class="activity-list">
+					<div class="activity-card">
+						<div class="act-time">19h</div>
+						<div class="act-title">Uber para Rio Vermelho</div>
+						<div class="act-desc">
+							Bairro boêmio, cheio de restaurantes e bares. Muito acolhedor para
+							casais LGBTQ+. Desloquem com Uber.
+						</div>
+						<div class="act-tag">
+							<span class="tag tag-uber">🚗 ~10 min / R$ 12–18</span>
+						</div>
+						<div class="act-icon">🚗</div>
+					</div>
+					<div class="activity-card food">
+						<div class="act-time">19h30</div>
+						<div class="act-title">🍽️ Jantar em Rio Vermelho</div>
+						<div class="act-desc">
+							<strong>Yemanjá</strong> (clássico e famoso, moqueca premiada) ou
+							<strong>Boteco Brasil</strong> (mais informal, petiscos e chope) —
+							ambos bem recebem casais. Reserve com antecedência no Yemanjá.
+						</div>
+						<div class="act-tag">
+							<span class="tag tag-dist">📍 Rio Vermelho</span>
+							<span class="tag tag-uber">💸 R$ 100–200 p/ casal</span>
+							<span class="tag tag-time">⏱ 1h30</span>
+						</div>
+						<div class="act-icon">🍤</div>
+					</div>
+					<div class="activity-card romantic">
+						<div class="act-time">21h30</div>
+						<div class="act-title">Bar ou passeio noturno em Rio Vermelho</div>
+						<div class="act-desc">
+							Caminhem pela orla de Rio Vermelho, entrem em algum bar com música
+							ao vivo. A cena noturna é movimentada e acolhedora. Voltem de Uber
+							por volta das 23h.
+						</div>
+						<div class="act-tag">
+							<span class="tag tag-uber">🚗 Volta: R$ 12–18</span>
+							<span class="tag tag-uber">💸 R$ 40–80 (drinks)</span>
+						</div>
+						<div class="act-icon">🎶</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="plan-b">
+				<div class="plan-b-title">🌧️ Plano B — Tempo Chuvoso</div>
+				<ul>
+					<li>
+						🏛️ <strong>Manhã:</strong> Shopping Barra (10 min de Uber) — ar
+						condicionado, lojas, cinema
+					</li>
+					<li>
+						🎨 <strong>Tarde:</strong> Museu de Arte Moderna (MAM) — próximo à
+						orla, coberto
+					</li>
+					<li>
+						🍴 <strong>Noite:</strong> Manter o jantar em Rio Vermelho — o clima
+						boêmio fica ainda mais gostoso na chuva
+					</li>
+				</ul>
+			</div>
+
+			<div class="tips-box">
+				<div class="tips-header">💡 Dicas do Dia 6</div>
+				<div class="tips-body">
+					<ul>
+						<li>
+							🧴 Protetor solar é obrigatório — o sol de Salvador é intenso
+							mesmo em junho
+						</li>
+						<li>
+							🍺 Mercadinhos próximos ao Farol vendem drinks gelados a preços
+							ótimos para o pôr do sol
+						</li>
+						<li>
+							📞 Reserve o Yemanjá com 1–2 dias de antecedência, especialmente
+							aos sábados
+						</li>
+						<li>
+							👟 Sandálias confortáveis — você vai caminhar bastante nesse dia
+						</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+
+		<!-- ════════════════════════════════════ DIA 7 ════════════════════════════════════ -->
+		<section class="section" id="tab-dia7">
+			<div class="day-header">
+				<div class="day-number">7</div>
+				<div class="day-info">
+					<h2>História, Cultura & Cidade Alta</h2>
+					<p>
+						Domingo · Pelourinho, Elevador Lacerda, Mercado Modelo — depois,
+						descanso na Barra
+					</p>
+				</div>
+			</div>
+
+			<div class="summary-bar">
+				<div class="summary-card">
+					<div class="s-icon">🏛️</div>
+					<div class="s-label">Ritmo</div>
+					<div class="s-val">Ativo</div>
+				</div>
+				<div class="summary-card">
+					<div class="s-icon">🚗</div>
+					<div class="s-label">Uber Estimado</div>
+					<div class="s-val">~R$ 80–100</div>
+				</div>
+				<div class="summary-card">
+					<div class="s-icon">💸</div>
+					<div class="s-label">Gasto Est.</div>
+					<div class="s-val">R$ 300–450</div>
+				</div>
+			</div>
+
+			<div class="period">
+				<div class="period-label">🌅 Manhã</div>
+				<div class="activity-list">
+					<div class="activity-card">
+						<div class="act-time">8h30</div>
+						<div class="act-title">Café da manhã no hotel</div>
+						<div class="act-desc">
+							Hoje o dia começa cedo — aproveitem um café reforçado antes de
+							partir para o Centro Histórico.
+						</div>
+						<div class="act-tag">
+							<span class="tag tag-time">⏱ 45 min</span>
+						</div>
+						<div class="act-icon">☕</div>
+					</div>
+					<div class="activity-card highlight">
+						<div class="act-time">9h30</div>
+						<div class="act-title">Pelourinho — Centro Histórico</div>
+						<div class="act-desc">
+							Patrimônio da Humanidade pela UNESCO. Casarões coloniais
+							coloridos, igrejas barrocas, ruas de pedra. Visitem a Igreja São
+							Francisco (interior banhado a ouro) e caminhem pelas ruelas.
+						</div>
+						<div class="act-tag">
+							<span class="tag tag-uber">🚗 Uber ~20 min / R$ 22–30</span>
+							<span class="tag tag-time">⏱ 2h</span>
+							<span class="tag tag-special">⭐ Imperdível</span>
+						</div>
+						<div class="act-icon">🏰</div>
+					</div>
+					<div class="activity-card highlight">
+						<div class="act-time">11h</div>
+						<div class="act-title">Elevador Lacerda</div>
+						<div class="act-desc">
+							O símbolo de Salvador — sobe da Cidade Baixa para a Alta em menos
+							de 30 segundos com vista deslumbrante da Baía de Todos-os-Santos.
+							Passagem de R$ 0,15 (sim, quinze centavos!).
+						</div>
+						<div class="act-tag">
+							<span class="tag tag-dist">🚶 10 min do Pelourinho</span>
+							<span class="tag tag-uber">💸 R$ 0,15 por viagem</span>
+							<span class="tag tag-special">⭐ Ícone da cidade</span>
+						</div>
+						<div class="act-icon">🛗</div>
+					</div>
+					<div class="activity-card highlight">
+						<div class="act-time">11h30</div>
+						<div class="act-title">Mercado Modelo</div>
+						<div class="act-desc">
+							Logo na saída do Elevador Lacerda. Artesanato baiano,
+							lembrancinha, arte local — um ótimo lugar para comprar pequenos
+							presentes e absorver a cultura popular da Bahia.
+						</div>
+						<div class="act-tag">
+							<span class="tag tag-dist">🚶 2 min do Elevador</span>
+							<span class="tag tag-time">⏱ 45 min</span>
+							<span class="tag tag-uber">💸 R$ 30–80 em compras</span>
+						</div>
+						<div class="act-icon">🏪</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="period">
+				<div class="period-label">☀️ Tarde</div>
+				<div class="activity-list">
+					<div class="activity-card food">
+						<div class="act-time">13h</div>
+						<div class="act-title">
+							🍽️ Almoço — Restaurante SENAC Pelourinho
+						</div>
+						<div class="act-desc">
+							O melhor custo-benefício da região histórica. Buffet de comida
+							baiana autêntica com vista para o Pelourinho. Por volta de R$
+							60–80 por pessoa. Ambiente encantador.
+						</div>
+						<div class="act-tag">
+							<span class="tag tag-dist">📍 Pelourinho</span>
+							<span class="tag tag-uber">💸 R$ 120–160 p/ casal</span>
+							<span class="tag tag-time">⏱ 1h15</span>
+						</div>
+						<div class="act-icon">🍛</div>
+					</div>
+					<div class="activity-card">
+						<div class="act-time">14h30</div>
+						<div class="act-title">Uber de volta para a Barra</div>
+						<div class="act-desc">
+							Vocês já fizeram bastante — hora de relaxar. De volta ao hotel
+							para descansar e se preparar para a noite.
+						</div>
+						<div class="act-tag">
+							<span class="tag tag-uber">🚗 ~20 min / R$ 22–30</span>
+						</div>
+						<div class="act-icon">🚗</div>
+					</div>
+					<div class="activity-card romantic">
+						<div class="act-time">16h30</div>
+						<div class="act-title">Praia da Barra — tarde dourada</div>
+						<div class="act-desc">
+							Uma hora de praia no fim da tarde — água mais tranquila, luz
+							dourada, menos gente. Perfeito para aquele banho refrescante
+							depois de um dia andando muito.
+						</div>
+						<div class="act-tag">
+							<span class="tag tag-dist">🚶 5 min a pé</span>
+							<span class="tag tag-time">⏱ 1h</span>
+							<span class="tag tag-special">💑 Relaxante</span>
+						</div>
+						<div class="act-icon">🌊</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="period">
+				<div class="period-label">🌙 Noite</div>
+				<div class="activity-list">
+					<div class="activity-card food">
+						<div class="act-time">19h30</div>
+						<div class="act-title">🍽️ Jantar na Barra</div>
+						<div class="act-desc">
+							<strong>Carangueijo de Sergipe</strong> (orla Barra) — frutos do
+							mar generosos e gostosos, ambiente descontraído. Ou
+							<strong>Amado</strong> se quiserem algo mais sofisticado (reserve
+							com antecedência).
+						</div>
+						<div class="act-tag">
+							<span class="tag tag-dist">🚶 10–15 min a pé</span>
+							<span class="tag tag-uber">💸 R$ 120–200 p/ casal</span>
+						</div>
+						<div class="act-icon">🦞</div>
+					</div>
+					<div class="activity-card">
+						<div class="act-time">21h30</div>
+						<div class="act-title">Noite tranquila na Barra</div>
+						<div class="act-desc">
+							Amanhã é o aniversário — guardem energia! Passeio na orla,
+							sorvete, dormir cedo. O dia 8 vai ser especial.
+						</div>
+						<div class="act-tag">
+							<span class="tag tag-special">🎂 Reservem forças!</span>
+						</div>
+						<div class="act-icon">🌙</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="plan-b">
+				<div class="plan-b-title">🌧️ Plano B — Tempo Chuvoso</div>
+				<ul>
+					<li>
+						🏛️ <strong>Pelourinho</strong> ainda vale muito na chuva — as ruas
+						de pedra molhadas ficam cinematográficas
+					</li>
+					<li>
+						🎨 <strong>Museu Afro-Brasileiro (MAFRO)</strong> — no próprio
+						Pelourinho, excelente acervo coberto
+					</li>
+					<li>
+						🍫 <strong>Chocolates Mendoá</strong> — loja de chocolate artesanal
+						no Pelourinho, ótima para um agrado
+					</li>
+				</ul>
+			</div>
+
+			<div class="tips-box">
+				<div class="tips-header">💡 Dicas do Dia 7</div>
+				<div class="tips-body">
+					<ul>
+						<li>
+							🕘 Chegue ao Pelourinho cedo (antes das 10h) para evitar o pico de
+							turistas
+						</li>
+						<li>
+							👜 Deixem objetos de valor no hotel — leve somente o necessário no
+							centro histórico
+						</li>
+						<li>📸 A luz da manhã no Pelourinho é incrível para fotos</li>
+						<li>
+							🎫 Igreja São Francisco: entrada ~R$ 10 por pessoa, vale muito
+						</li>
+						<li>
+							💡 No Elevador Lacerda, faça a viagem de ida e volta para ver as
+							duas perspectivas
+						</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+
+		<!-- ════════════════════════════════════ DIA 8 ════════════════════════════════════ -->
+		<section class="section" id="tab-dia8">
+			<div class="day-header">
+				<div class="day-number">8</div>
+				<div class="day-info">
+					<h2>Feliz Aniversário! 🎂</h2>
+					<p>
+						Segunda-feira · O dia mais especial — Bonfim, jantar inesquecível e
+						noite de celebração
+					</p>
+					<div class="birthday-badge">
+						🎉 DIA DE ANIVERSÁRIO — capricha tudo!
+					</div>
+				</div>
+			</div>
+
+			<div class="summary-bar">
+				<div class="summary-card">
+					<div class="s-icon">🎂</div>
+					<div class="s-label">Clima</div>
+					<div class="s-val">Celebração</div>
+				</div>
+				<div class="summary-card">
+					<div class="s-icon">💸</div>
+					<div class="s-label">Gasto Est.</div>
+					<div class="s-val">R$ 450–700</div>
+				</div>
+				<div class="summary-card">
+					<div class="s-icon">⭐</div>
+					<div class="s-label">Destaque</div>
+					<div class="s-val">Jantar Especial</div>
+				</div>
+			</div>
+
+			<div class="period">
+				<div class="period-label">🌅 Manhã — Começando com charme</div>
+				<div class="activity-list">
+					<div class="activity-card romantic">
+						<div class="act-time">9h30</div>
+						<div class="act-title">Café da manhã especial</div>
+						<div class="act-desc">
+							Combinem com o hotel algum elemento surpresa (se possível) — ou
+							vão a uma cafeteria especial. <strong>Sugestão:</strong> Cafeteria
+							Mana (Barra) com bolo, pão de mel e café especial. Comecem o dia
+							devagar.
+						</div>
+						<div class="act-tag">
+							<span class="tag tag-dist">🚶 5–10 min a pé</span>
+							<span class="tag tag-uber">💸 R$ 50–80 p/ casal</span>
+							<span class="tag tag-special">🎂 Comemorem juntos</span>
+						</div>
+						<div class="act-icon">🎂</div>
+					</div>
+					<div class="activity-card highlight">
+						<div class="act-time">11h</div>
+						<div class="act-title">Igreja do Bonfim — pedir uma graça</div>
+						<div class="act-desc">
+							Uma das mais famosas igrejas do Brasil. Amarre uma fita do Bonfim
+							(R$ 2–5) e peça um desejo juntos — tradição baiana de boa sorte
+							para quem ama. Atmosfera mágica e emocionante.
+						</div>
+						<div class="act-tag">
+							<span class="tag tag-uber">🚗 Uber ~25 min / R$ 28–35</span>
+							<span class="tag tag-time">⏱ 1h–1h30</span>
+							<span class="tag tag-special">💑 Romântico & Especial</span>
+						</div>
+						<div class="act-icon">⛪</div>
+					</div>
+					<div class="activity-card">
+						<div class="act-time">12h30</div>
+						<div class="act-title">Uber de volta para a Barra</div>
+						<div class="act-desc">
+							Retorno tranquilo — parem em algum ponto bonito se quiserem uma
+							foto no caminho.
+						</div>
+						<div class="act-tag">
+							<span class="tag tag-uber">🚗 ~25 min / R$ 28–35</span>
+						</div>
+						<div class="act-icon">🚗</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="period">
+				<div class="period-label">☀️ Tarde — Relaxamento & Preparação</div>
+				<div class="activity-list">
+					<div class="activity-card romantic">
+						<div class="act-time">13h30</div>
+						<div class="act-title">🍽️ Almoço especial na Barra</div>
+						<div class="act-desc">
+							<strong>Restaurante Trapiche Adelaide</strong> — um dos melhores
+							de Salvador, com vista para a Baía. Comida baiana refinada. Ideal
+							para o almoço de aniversário. Reserve com 2–3 dias de
+							antecedência!
+						</div>
+						<div class="act-tag">
+							<span class="tag tag-dist">🚶 10–15 min a pé</span>
+							<span class="tag tag-uber">💸 R$ 180–280 p/ casal</span>
+							<span class="tag tag-special">🎂 Almoço de aniversário!</span>
+						</div>
+						<div class="act-icon">🍽️</div>
+					</div>
+					<div class="activity-card">
+						<div class="act-time">15h30</div>
+						<div class="act-title">Tarde livre — hotel ou praia</div>
+						<div class="act-desc">
+							Descansem, nadem, durmam um pouco — essa tarde é de vocês. O
+							hotel, a piscina (se houver), ou a praia deserta de segunda-feira
+							são o cenário perfeito.
+						</div>
+						<div class="act-tag">
+							<span class="tag tag-special">💑 Tempo juntos</span>
+						</div>
+						<div class="act-icon">😌</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="period">
+				<div class="period-label">🌙 Noite — O Grande Momento ✨</div>
+				<div class="activity-list">
+					<div class="activity-card romantic">
+						<div class="act-time">17h30</div>
+						<div class="act-title">Pôr do sol no Farol com espumante</div>
+						<div class="act-desc">
+							Comprem uma garrafa de espumante gelado antes e vão para as pedras
+							do Farol da Barra. Brindem ao aniversário com o pôr do sol mais
+							bonito de Salvador ao fundo. Façam fotos.
+						</div>
+						<div class="act-tag">
+							<span class="tag tag-dist">🚶 8–10 min a pé</span>
+							<span class="tag tag-uber">💸 ~R$ 30–50 espumante</span>
+							<span class="tag tag-special">💑 Momento especial</span>
+						</div>
+						<div class="act-icon">🥂</div>
+					</div>
+					<div class="activity-card romantic">
+						<div class="act-time">19h30</div>
+						<div class="act-title">🎂 Jantar de Aniversário — Amado</div>
+						<div class="act-desc">
+							<strong>Restaurante Amado</strong> (Av. Lafaiete Coutinho,
+							Contorno) — considerado um dos melhores de Salvador. Culinária
+							baiana contemporânea com vista para a Baía. Avise que é
+							aniversário para um possível mimo especial.
+							<strong>Reserve com antecedência!</strong>
+						</div>
+						<div class="act-tag">
+							<span class="tag tag-uber">🚗 Uber ~15 min / R$ 18–25</span>
+							<span class="tag tag-uber">💸 R$ 250–400 p/ casal</span>
+							<span class="tag tag-special">🎂 O jantar do ano!</span>
+							<span class="tag tag-special">⭐ Top restaurante</span>
+						</div>
+						<div class="act-icon">🌟</div>
+					</div>
+					<div class="activity-card food">
+						<div class="act-time">22h</div>
+						<div class="act-title">
+							Sobremesa & Drinks — Sorvete artesanal ou bar especial
+						</div>
+						<div class="act-desc">
+							<strong>Bola de Neve Sorvetes</strong> (Barra) ou algum bar
+							aconchegante na orla para fechar a noite com o pé na areia.
+							Terminem o aniversário de forma simples e feliz.
+						</div>
+						<div class="act-tag">
+							<span class="tag tag-dist">🚶 Próximo ao hotel</span>
+							<span class="tag tag-uber">💸 R$ 40–60</span>
+						</div>
+						<div class="act-icon">🍦</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="plan-b">
+				<div class="plan-b-title">🌧️ Plano B — Chuva no Dia do Aniversário</div>
+				<ul>
+					<li>
+						⛪ <strong>Bonfim:</strong> A experiência é ainda mais mágica com
+						chuva — mantenha no roteiro
+					</li>
+					<li>
+						🛁 <strong>Tarde de spa:</strong> Hotéis de luxo na Barra oferecem
+						day use com spa — presente lindo
+					</li>
+					<li>
+						🌅 <strong>Pôr do sol:</strong> Se chover, façam o brinde no quarto
+						do hotel com vista
+					</li>
+					<li>
+						🍽️ <strong>Jantar Amado:</strong> Mantenha a reserva — o restaurante
+						é fechado e ainda mais romântico na chuva
+					</li>
+				</ul>
+			</div>
+
+			<div class="tips-box">
+				<div class="tips-header">🎂 Dicas Especiais do Aniversário</div>
+				<div class="tips-body">
+					<ul>
+						<li>
+							📞 Reserve o Restaurante Amado com 3–5 dias de antecedência e
+							avise que é aniversário
+						</li>
+						<li>
+							🎁 Esconda um cartão ou presentinho no hotel para deixar na cama
+							ao acordar
+						</li>
+						<li>
+							📸 Contratem um fotógrafo de rua no Farol para a foto do pôr do
+							sol — muitos oferecem e ficam lindas
+						</li>
+						<li>
+							🍾 Segunda-feira o Farol fica menos movimentado — aproveitem a
+							tranquilidade
+						</li>
+						<li>
+							🏨 Vale checar se a pousada faz algum mimo de aniversário — muitas
+							fazem com antecedência
+						</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+
+		<!-- ════════════════════════════════════ DIA 9 ════════════════════════════════════ -->
+		<section class="section" id="tab-dia9">
+			<div class="day-header">
+				<div class="day-number">9</div>
+				<div class="day-info">
+					<h2>Partida — Até logo, Salvador</h2>
+					<p>Terça-feira · Saída às 6h · Só malas, memórias e saudade</p>
+				</div>
+			</div>
+
+			<div class="period">
+				<div class="period-label">🌙 Madrugada / Partida</div>
+				<div class="activity-list">
+					<div class="activity-card">
+						<div class="act-time">4h30</div>
+						<div class="act-title">Despertar & última olhada</div>
+						<div class="act-desc">
+							Acorde com calma, capriche nas malas na noite anterior. Tome um
+							café rápido — algum hotel oferece café cedo se avisado. Façam uma
+							última respirada do ar salgado da Barra.
+						</div>
+						<div class="act-icon">⏰</div>
+						<div class="act-tag">
+							<span class="tag tag-time">⏱ 30 min</span>
+						</div>
+					</div>
+					<div class="activity-card">
+						<div class="act-time">5h15</div>
+						<div class="act-title">Check-out & Uber para o aeroporto</div>
+						<div class="act-desc">
+							Solicite o Uber com antecedência. O Aeroporto de Salvador (Dep.
+							Luís Eduardo Magalhães) fica a ~35–45 min da Barra dependendo do
+							trânsito. Saiam às 5h15 para garantir.
+						</div>
+						<div class="act-tag">
+							<span class="tag tag-uber">🚗 Uber ~35–45 min / R$ 55–75</span>
+						</div>
+						<div class="act-icon">✈️</div>
+					</div>
+					<div class="activity-card romantic">
+						<div class="act-time">No caminho</div>
+						<div class="act-title">Conversa de retorno ❤️</div>
+						<div class="act-desc">
+							No Uber ou no aeroporto — falem sobre o que mais gostaram, o que
+							emocionou, o que querem repetir. Essa viagem vai ficar em vocês
+							por um bom tempo.
+						</div>
+						<div class="act-icon">💬</div>
+						<div class="act-tag">
+							<span class="tag tag-special">💑 Momento especial</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="tips-box">
+				<div class="tips-header">💡 Dicas para a Partida</div>
+				<div class="tips-body">
+					<ul>
+						<li>
+							🧳 Faça as malas na noite do dia 8 — você não vai querer acordar
+							cedo E arrumar tudo
+						</li>
+						<li>
+							📱 Reserve o Uber com 5 min de antecedência às 5h10 — trânsito é
+							leve mas demora para confirmar
+						</li>
+						<li>
+							✈️ O aeroporto tem cafeteria aberta cedo — tome um café lá com
+							calma
+						</li>
+						<li>
+							🌅 Se tiver sorte, peguem o nascer do sol pelo vidro do carro
+						</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+
+		<!-- ════════════════════════════════════ EXTRAS ════════════════════════════════════ -->
+		<section class="section" id="tab-extras">
+			<div
+				class="day-header"
+				style="background: linear-gradient(135deg, #7b2d5e, #a84077)"
+			>
+				<div class="day-number" style="color: var(--gold-l)">✨</div>
+				<div class="day-info">
+					<h2>Extras & Highlights</h2>
+					<p>
+						Os melhores momentos, lugares imperdíveis e tudo que você precisa
+						saber
+					</p>
+				</div>
+			</div>
+
+			<div class="extras-grid">
+				<div class="extras-card ec-romantic">
+					<div class="extras-card-header">💑 Top 5 — Mais Românticos</div>
+					<div class="extras-card-body">
+						<ol>
+							<li>
+								🌅 <strong>Pôr do sol no Farol da Barra</strong> — o clássico
+								dos clássicos
+							</li>
+							<li>
+								🥂 <strong>Brinde com espumante no Farol</strong> no aniversário
+							</li>
+							<li>
+								⛪ <strong>Fita do Bonfim</strong> — pedido de desejo juntos
+							</li>
+							<li>
+								🌊 <strong>Praia de Porto da Barra</strong> ao entardecer — luz
+								dourada
+							</li>
+							<li>🍽️ <strong>Jantar no Amado</strong> com vista para a Baía</li>
+						</ol>
+					</div>
+				</div>
+
+				<div class="extras-card ec-mustgo">
+					<div class="extras-card-header">⭐ Top 5 — Lugares Imperdíveis</div>
+					<div class="extras-card-body">
+						<ol>
+							<li>
+								🏖️ <strong>Porto da Barra</strong> — a praia mais bonita de
+								Salvador
+							</li>
+							<li>
+								🏰 <strong>Pelourinho</strong> — patrimônio histórico
+								inigualável
+							</li>
+							<li>
+								🏛️ <strong>Farol da Barra</strong> — ícone absoluto da cidade
+							</li>
+							<li>
+								🛗 <strong>Elevador Lacerda</strong> — vista que ninguém esquece
+							</li>
+							<li>
+								🎶 <strong>Rio Vermelho</strong> — a alma boêmia de Salvador
+							</li>
+						</ol>
+					</div>
+				</div>
+
+				<div class="extras-card ec-rain">
+					<div class="extras-card-header">🌧️ Top 3 — Opções para Chuva</div>
+					<div class="extras-card-body">
+						<ol>
+							<li>
+								🎨 <strong>Museu Afro-Brasileiro (MAFRO)</strong> — acervo
+								incrível no Pelourinho
+							</li>
+							<li>
+								🛍️ <strong>Shopping Barra</strong> — cinema, lojas, gastronomia
+							</li>
+							<li>
+								🍫 <strong>Chocolates Mendoá</strong> + café no Pelourinho —
+								delicioso dia coberto
+							</li>
+						</ol>
+					</div>
+				</div>
+
+				<div class="extras-card ec-budget">
+					<div class="extras-card-header">🔄 Ordem Ideal Alternativa</div>
+					<div class="extras-card-body">
+						<div
+							style="font-size: 0.85rem; color: var(--dark); line-height: 1.6"
+						>
+							<strong>Se quiser reordenar os dias:</strong><br /><br />
+							🏅 <strong>Melhor sequência alternativa:</strong><br />
+							Dia 6 → História (Pelourinho no sábado tem mais
+							movimento/animação)<br />
+							Dia 7 → Praia + Farol (domingo mais tranquilo na praia)<br />
+							<br />
+							✅
+							<strong>Aniversário (Dia 8) deve sempre ser o penúltimo</strong> —
+							climax da viagem antes da saída.
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ════════════════════════════════════ GASTOS ════════════════════════════════════ -->
+		<section class="section" id="tab-gastos">
+			<div
+				class="day-header"
+				style="background: linear-gradient(135deg, #2d5a1b, #4a8a2b)"
+			>
+				<div class="day-number" style="color: var(--gold-l)">💰</div>
+				<div class="day-info">
+					<h2>Estimativa de Gastos</h2>
+					<p>
+						Todos os valores são para o casal, em reais. Baseados em junho de
+						2025.
+					</p>
+				</div>
+			</div>
+
+			<table class="budget-table">
+				<thead>
+					<tr>
+						<th>Item</th>
+						<th>Localização / Distância</th>
+						<th>Uber (ida)</th>
+						<th>Custo Est. (casal)</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- HOSPEDAGEM -->
+					<tr>
+						<td
+							colspan="4"
+							style="
+								background: #f5f5f5;
+								font-weight: 600;
+								font-size: 0.8rem;
+								letter-spacing: 0.1em;
+								padding: 0.6rem 1rem;
+								color: #666;
+							"
+						>
+							🏨 HOSPEDAGEM (4 noites)
+						</td>
+					</tr>
+					<tr>
+						<td>Pousada/Hotel na Barra (4 noites)</td>
+						<td>📍 Barra — base</td>
+						<td>—</td>
+						<td>R$ 3.400–4.800</td>
+					</tr>
+					<tr class="subtotal">
+						<td colspan="3">Subtotal Hospedagem</td>
+						<td>R$ 3.400–4.800</td>
+					</tr>
+
+					<!-- DIA 5 -->
+					<tr>
+						<td
+							colspan="4"
+							style="
+								background: #f5f5f5;
+								font-weight: 600;
+								font-size: 0.8rem;
+								letter-spacing: 0.1em;
+								padding: 0.6rem 1rem;
+								color: #666;
+							"
+						>
+							📅 DIA 5 — Chegada
+						</td>
+					</tr>
+					<tr>
+						<td>Drinks/lanche de chegada</td>
+						<td>🚶 Orla da Barra (5 min)</td>
+						<td>—</td>
+						<td>R$ 50–90</td>
+					</tr>
+					<tr class="subtotal">
+						<td colspan="3">Subtotal Dia 5</td>
+						<td>R$ 50–90</td>
+					</tr>
+
+					<!-- DIA 6 -->
+					<tr>
+						<td
+							colspan="4"
+							style="
+								background: #f5f5f5;
+								font-weight: 600;
+								font-size: 0.8rem;
+								letter-spacing: 0.1em;
+								padding: 0.6rem 1rem;
+								color: #666;
+							"
+						>
+							📅 DIA 6 — Praia & Rio Vermelho
+						</td>
+					</tr>
+					<tr>
+						<td>Cadeiras/guarda-sol praia</td>
+						<td>🚶 Porto da Barra (5 min)</td>
+						<td>—</td>
+						<td>R$ 30–40</td>
+					</tr>
+					<tr>
+						<td>Museu Náutico (entradas)</td>
+						<td>🚶 Farol da Barra (8 min)</td>
+						<td>—</td>
+						<td>R$ 20–30</td>
+					</tr>
+					<tr>
+						<td>Almoço — frutos do mar</td>
+						<td>🚶 Barra (5 min)</td>
+						<td>—</td>
+						<td>R$ 90–150</td>
+					</tr>
+					<tr>
+						<td>Drinks pôr do sol (Farol)</td>
+						<td>🚶 Farol (10 min)</td>
+						<td>—</td>
+						<td>R$ 30–50</td>
+					</tr>
+					<tr>
+						<td>Uber Barra → Rio Vermelho (ida)</td>
+						<td>🚗 10 min</td>
+						<td>R$ 12–18</td>
+						<td>R$ 12–18</td>
+					</tr>
+					<tr>
+						<td>Jantar em Rio Vermelho (Yemanjá)</td>
+						<td>📍 Rio Vermelho</td>
+						<td>—</td>
+						<td>R$ 120–200</td>
+					</tr>
+					<tr>
+						<td>Drinks + Uber volta Rio Vermelho</td>
+						<td>🚗 10 min</td>
+						<td>R$ 12–18</td>
+						<td>R$ 50–90</td>
+					</tr>
+					<tr class="subtotal">
+						<td colspan="3">Subtotal Dia 6</td>
+						<td>R$ 354–578</td>
+					</tr>
+
+					<!-- DIA 7 -->
+					<tr>
+						<td
+							colspan="4"
+							style="
+								background: #f5f5f5;
+								font-weight: 600;
+								font-size: 0.8rem;
+								letter-spacing: 0.1em;
+								padding: 0.6rem 1rem;
+								color: #666;
+							"
+						>
+							📅 DIA 7 — Pelourinho & Cultura
+						</td>
+					</tr>
+					<tr>
+						<td>Uber Barra → Pelourinho</td>
+						<td>🚗 20 min</td>
+						<td>R$ 22–30</td>
+						<td>R$ 22–30</td>
+					</tr>
+					<tr>
+						<td>Igreja São Francisco (entrada)</td>
+						<td>📍 Pelourinho</td>
+						<td>—</td>
+						<td>R$ 20</td>
+					</tr>
+					<tr>
+						<td>Elevador Lacerda (2 viagens)</td>
+						<td>🚶 10 min do Pelo</td>
+						<td>—</td>
+						<td>R$ 0,60</td>
+					</tr>
+					<tr>
+						<td>Artesanato no Mercado Modelo</td>
+						<td>🚶 2 min do Elevador</td>
+						<td>—</td>
+						<td>R$ 30–80</td>
+					</tr>
+					<tr>
+						<td>Almoço SENAC Pelourinho</td>
+						<td>📍 Pelourinho</td>
+						<td>—</td>
+						<td>R$ 120–160</td>
+					</tr>
+					<tr>
+						<td>Uber Pelourinho → Barra</td>
+						<td>🚗 20 min</td>
+						<td>R$ 22–30</td>
+						<td>R$ 22–30</td>
+					</tr>
+					<tr>
+						<td>Jantar na Barra</td>
+						<td>🚶 10–15 min a pé</td>
+						<td>—</td>
+						<td>R$ 120–200</td>
+					</tr>
+					<tr class="subtotal">
+						<td colspan="3">Subtotal Dia 7</td>
+						<td>R$ 334–520</td>
+					</tr>
+
+					<!-- DIA 8 -->
+					<tr>
+						<td
+							colspan="4"
+							style="
+								background: #f5f5f5;
+								font-weight: 600;
+								font-size: 0.8rem;
+								letter-spacing: 0.1em;
+								padding: 0.6rem 1rem;
+								color: #666;
+							"
+						>
+							📅 DIA 8 — Aniversário 🎂
+						</td>
+					</tr>
+					<tr>
+						<td>Café da manhã especial</td>
+						<td>🚶 Barra (5 min)</td>
+						<td>—</td>
+						<td>R$ 60–90</td>
+					</tr>
+					<tr>
+						<td>Uber Barra → Bonfim (ida e volta)</td>
+						<td>🚗 25 min cada</td>
+						<td>R$ 28–35</td>
+						<td>R$ 56–70</td>
+					</tr>
+					<tr>
+						<td>Fitas do Bonfim + entrada</td>
+						<td>📍 Igreja do Bonfim</td>
+						<td>—</td>
+						<td>R$ 10–20</td>
+					</tr>
+					<tr>
+						<td>Almoço Trapiche Adelaide</td>
+						<td>🚶 Barra (15 min)</td>
+						<td>—</td>
+						<td>R$ 180–280</td>
+					</tr>
+					<tr>
+						<td>Espumante pôr do sol (Farol)</td>
+						<td>🚶 Farol (10 min)</td>
+						<td>—</td>
+						<td>R$ 35–60</td>
+					</tr>
+					<tr>
+						<td>Uber Barra → Amado (ida e volta)</td>
+						<td>🚗 15 min</td>
+						<td>R$ 18–25</td>
+						<td>R$ 36–50</td>
+					</tr>
+					<tr>
+						<td>🌟 Jantar Amado (aniversário)</td>
+						<td>📍 Av. Contorno</td>
+						<td>—</td>
+						<td>R$ 280–420</td>
+					</tr>
+					<tr>
+						<td>Sorvete/drinks pós-jantar</td>
+						<td>🚶 Barra</td>
+						<td>—</td>
+						<td>R$ 40–60</td>
+					</tr>
+					<tr class="subtotal">
+						<td colspan="3">Subtotal Dia 8</td>
+						<td>R$ 697–1.050</td>
+					</tr>
+
+					<!-- DIA 9 -->
+					<tr>
+						<td
+							colspan="4"
+							style="
+								background: #f5f5f5;
+								font-weight: 600;
+								font-size: 0.8rem;
+								letter-spacing: 0.1em;
+								padding: 0.6rem 1rem;
+								color: #666;
+							"
+						>
+							📅 DIA 9 — Partida
+						</td>
+					</tr>
+					<tr>
+						<td>Uber Barra → Aeroporto</td>
+						<td>🚗 35–45 min</td>
+						<td>R$ 55–75</td>
+						<td>R$ 55–75</td>
+					</tr>
+					<tr class="subtotal">
+						<td colspan="3">Subtotal Dia 9</td>
+						<td>R$ 55–75</td>
+					</tr>
+
+					<!-- TOTAL -->
+					<tr class="total-row">
+						<td colspan="3">💰 TOTAL ESTIMADO (sem hospedagem)</td>
+						<td>R$ 1.490–2.313</td>
+					</tr>
+					<tr
+						class="total-row"
+						style="background: linear-gradient(90deg, #0b4f5e, #1a7a90)"
+					>
+						<td colspan="3">🏆 TOTAL GERAL (com hospedagem)</td>
+						<td>R$ 4.890–7.113</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<p class="budget-note">
+				⚠️ Valores são estimativas para junho de 2025 e podem variar. Preços de
+				Uber dependem de horário e demanda.<br />
+				💡 <strong>Para economizar:</strong> Substitua o Amado por um
+				restaurante mais acessível em Rio Vermelho (saving R$150–200).<br />
+				💡 <strong>Para gastar melhor:</strong> O jantar no Amado no aniversário
+				vale cada centavo — priorize-o.
+			</p>
+
+			<div class="order-card">
+				<div class="order-header">🔄 Sugestão de Ordem Ideal dos Dias</div>
+				<div class="order-body">
+					<div class="order-flow">
+						<div class="order-day">Dia 6<br /><small>Pelourinho</small></div>
+						<div class="order-arrow">→</div>
+						<div class="order-day">Dia 7<br /><small>Praia & Farol</small></div>
+						<div class="order-arrow">→</div>
+						<div class="order-day">
+							Dia 8<br /><small>🎂 Aniversário</small>
+						</div>
+					</div>
+					<p class="order-rationale">
+						<strong>Por quê essa ordem?</strong> Começar pelo Pelourinho no
+						sábado (dia 6) é vantajoso porque há mais movimento cultural,
+						músicos nas ruas e lojas abertas. O domingo fica para a praia — que
+						fica mais tranquila e vazia aos domingos. O aniversário (segunda)
+						fica estrategicamente como clímax da viagem: menos turistas, Bonfim
+						sem fila, Farol tranquilo, reserva no Amado mais fácil de conseguir,
+						e a partida no dia seguinte preserva a energia.
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- FOOTER -->
+		<footer>
+			<div>✨ Roteiro criado com carinho para vocês dois ✨</div>
+			<div>Salvador — <strong>Barra</strong> · Junho 2025</div>
+			<div style="margin-top: 0.5rem; font-size: 0.75rem">
+				🌊 Porto da Barra · 🏛️ Pelourinho · 🌅 Farol · 🛗 Lacerda · ⛪ Bonfim ·
+				🎶 Rio Vermelho
+			</div>
+			<div style="margin-top: 0.5rem; font-size: 0.73rem; opacity: 0.7">
+				Boa Viagem! 🌈❤️
+			</div>
+			<div>
+				<a href="/nos2.html">Clique aqui para mais</a>
+			</div>
+		</footer>
+
+		<script>
+			// ── TAB NAVIGATION ──
+			function showTab(id) {
+				document
+					.querySelectorAll(".section")
+					.forEach((s) => s.classList.remove("active"));
+				document
+					.querySelectorAll(".tab-btn")
+					.forEach((b) => b.classList.remove("active"));
+				document.getElementById("tab-" + id).classList.add("active");
+
+				const tabMap = {
+					overview: 0,
+					dia5: 1,
+					dia6: 2,
+					dia7: 3,
+					dia8: 4,
+					dia9: 5,
+					extras: 6,
+					gastos: 7,
+				};
+				document
+					.querySelectorAll(".tab-btn")
+					[tabMap[id]].classList.add("active");
+				window.scrollTo({
+					top: document.querySelector(".nav-sticky").offsetTop,
+					behavior: "smooth",
+				});
+
+				// Re-trigger animations
+				document
+					.querySelectorAll(`#tab-${id} .activity-card`)
+					.forEach((el, i) => {
+						el.style.animation = "none";
+						el.offsetHeight;
+						el.style.animation = `fadeUp .5s ${i * 0.07}s both`;
+					});
+			}
+
+			// ── HERO CANVAS ANIMATION ──
+			const canvas = document.getElementById("heroCanvas");
+			const ctx = canvas.getContext("2d");
+			let particles = [];
+
+			function resize() {
+				canvas.width = window.innerWidth;
+				canvas.height = canvas.parentElement.offsetHeight;
+			}
+
+			class Particle {
+				constructor() {
+					this.reset();
+				}
+				reset() {
+					this.x = Math.random() * canvas.width;
+					this.y = Math.random() * canvas.height;
+					this.r = Math.random() * 1.5 + 0.3;
+					this.vx = (Math.random() - 0.5) * 0.3;
+					this.vy = -Math.random() * 0.4 - 0.1;
+					this.alpha = Math.random() * 0.5 + 0.1;
+					this.color = Math.random() > 0.5 ? "#c8973a" : "#ffffff";
+				}
+				update() {
+					this.x += this.vx;
+					this.y += this.vy;
+					if (this.y < -5 || this.x < -5 || this.x > canvas.width + 5)
+						this.reset();
+				}
+				draw() {
+					ctx.beginPath();
+					ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+					ctx.fillStyle = this.color;
+					ctx.globalAlpha = this.alpha;
+					ctx.fill();
+				}
+			}
+
+			function initParticles() {
+				particles = Array.from({ length: 80 }, () => new Particle());
+			}
+
+			function animate() {
+				ctx.clearRect(0, 0, canvas.width, canvas.height);
+				ctx.globalAlpha = 1;
+
+				// Draw wave-like lines
+				ctx.globalAlpha = 0.04;
+				for (let i = 0; i < 5; i++) {
+					ctx.beginPath();
+					ctx.strokeStyle = "#c8973a";
+					ctx.lineWidth = 1;
+					const t = Date.now() / 3000 + i;
+					for (let x = 0; x < canvas.width; x += 5) {
+						const y = canvas.height * 0.6 + Math.sin(x / 120 + t) * 40 + i * 30;
+						x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+					}
+					ctx.stroke();
+				}
+
+				particles.forEach((p) => {
+					p.update();
+					p.draw();
+				});
+				ctx.globalAlpha = 1;
+				requestAnimationFrame(animate);
+			}
+
+			resize();
+			initParticles();
+			animate();
+			window.addEventListener("resize", () => {
+				resize();
+				initParticles();
+			});
+		</script>
+	</body>
 </html>
