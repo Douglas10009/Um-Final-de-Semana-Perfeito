@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Nós Dois ♥ — Perguntas & Brincadeiras</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <canvas class="hero-canvas" id="heroCanvas"></canvas>
+  <div class="hero-content">
+    <p class="hero-eyebrow">3 anos juntos ♥</p>
+    <h1 class="hero-title">Nós<br><em>dois</em></h1>
+    <p class="hero-subtitle">Perguntas, brincadeiras e descobertas a dois</p>
+    <div class="hero-pills">
+      <span class="pill">🎲 Roleta de Perguntas</span>
+      <span class="pill">🍃 Momentos Leves</span>
+      <span class="pill">🌑 Conversas Profundas</span>
+      <span class="pill">🎮 Brincadeiras</span>
+    </div>
+    <div class="scroll-hint">
+      <span>começar</span>
+      <div class="line"></div>
+    </div>
+  </div>
+</header>
+
+<!-- STICKY NAV -->
+<nav class="nav-sticky">
+  <div class="tabs-scroll">
+    <button class="tab-btn active" onclick="showTab('roleta')">🎲 Roleta</button>
+    <button class="tab-btn" onclick="showTab('brincadeiras')">🎮 Brincadeiras</button>
+    <button class="tab-btn" onclick="showTab('leves')">🍃 Perguntas Leves</button>
+    <button class="tab-btn" onclick="showTab('pesadas')">🌑 Perguntas Pesadas</button>
+  </div>
+</nav>
+
+<!-- ══════════════ ROLETA ══════════════ -->
+<section class="section active" id="tab-roleta">
+  <div class="roleta-intro">
+    <h2 class="section-title">Roleta de Perguntas</h2>
+    <p class="section-sub">Escolha a vibe, gire a roleta e deixe o destino escolher a pergunta.</p>
+  </div>
+
+  <div class="category-btns">
+    <button class="cat-btn active" data-cat="leve" onclick="setCategory('leve', this)">
+      🍃 Leve
+    </button>
+    <button class="cat-btn" data-cat="pesada" onclick="setCategory('pesada', this)">
+      🌑 Pesada
+    </button>
+    <button class="cat-btn surprise" data-cat="surpresa" onclick="setCategory('surpresa', this)">
+      ✨ Surpresa
+    </button>
+  </div>
+
+  <div class="wheel-area">
+    <div class="wheel-wrap">
+      <div class="wheel-pointer">▼</div>
+      <canvas id="wheelCanvas" width="320" height="320"></canvas>
+      <div class="wheel-center-ring"></div>
+    </div>
+    <button class="spin-btn" id="spinBtn" onclick="spin()">
+      <span class="spin-btn-inner">Girar</span>
+    </button>
+  </div>
+
+  <div class="question-reveal" id="questionReveal">
+    <div class="question-card-reveal" id="questionCard">
+      <div class="qr-badge" id="qrBadge">🍃 Leve</div>
+      <p class="qr-text" id="qrText"></p>
+      <button class="spin-again-btn" onclick="spin()">Girar de novo →</button>
+    </div>
+  </div>
+
+  <p class="questions-counter" id="questionsCounter"></p>
+</section>
+
+<!-- ══════════════ BRINCADEIRAS ══════════════ -->
+<section class="section" id="tab-brincadeiras">
+  <h2 class="section-title">Brincadeiras</h2>
+  <p class="section-sub">Clique em qualquer brincadeira para ver as instruções completas.</p>
+
+  <div class="games-grid" id="gamesGrid"></div>
+</section>
+
+<!-- ══════════════ PERGUNTAS LEVES ══════════════ -->
+<section class="section" id="tab-leves">
+  <div class="qs-header leve-header">
+    <h2>🍃 Perguntas Leves</h2>
+    <p>Indiretas, imaginativas, sem pressão. Ótimas pra esquentar a conversa.</p>
+  </div>
+  <div class="questions-list" id="levesList"></div>
+</section>
+
+<!-- ══════════════ PERGUNTAS PESADAS ══════════════ -->
+<section class="section" id="tab-pesadas">
+  <div class="qs-header pesada-header">
+    <h2>🌑 Perguntas Pesadas</h2>
+    <p>Diretas no que importa. Para quando vocês estiverem prontos pra ir fundo.</p>
+  </div>
+  <div class="questions-list" id="pesadasList"></div>
+</section>
+
+<footer>
+  <div>✨ feito com amor para vocês dois ✨</div>
+  <div>3 anos juntos — e muito mais pela frente 🌈❤️</div>
+</footer>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

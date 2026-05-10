@@ -5,7 +5,7 @@
 // ── STATE ──
 let currentCategory = 'leve';
 let isSpinning = false;
-let shownLeve = new Set();
+let shownLeve   = new Set();
 let shownPesada = new Set();
 let currentAngle = 0;
 let animFrame;
@@ -19,12 +19,12 @@ const CY = wheelCanvas.height / 2;
 const RADIUS = 148;
 
 const SEG_COLORS = [
-  '#0b4f5e', '#d9694a', '#c8973a', '#1a7a90',
-  '#d9694a', '#0b4f5e', '#e4ba6a', '#1a7a90',
-  '#c8973a', '#0b4f5e', '#d9694a', '#1a7a90',
+  '#0b4f5e','#d9694a','#c8973a','#1a7a90',
+  '#d9694a','#0b4f5e','#e4ba6a','#1a7a90',
+  '#c8973a','#0b4f5e','#d9694a','#1a7a90',
 ];
 
-const SEG_ICONS = ['♥', '★', '♦', '♥', '★', '♦', '♥', '★', '♦', '♥', '★', '♦'];
+const SEG_ICONS = ['♥','★','♦','♥','★','♦','♥','★','♦','♥','★','♦'];
 
 function drawWheel(rotation) {
   wCtx.clearRect(0, 0, wheelCanvas.width, wheelCanvas.height);
@@ -43,7 +43,7 @@ function drawWheel(rotation) {
 
   for (let i = 0; i < SEGMENTS; i++) {
     const start = arc * i + rotation;
-    const end = start + arc;
+    const end   = start + arc;
 
     // Segment
     wCtx.beginPath();
@@ -125,19 +125,19 @@ function spin() {
   document.getElementById('questionReveal').classList.remove('visible');
 
   const extraRotations = (5 + Math.random() * 5) * Math.PI * 2;
-  const targetAngle = currentAngle + extraRotations;
-  const duration = 3000 + Math.random() * 1000;
-  const startAngle = currentAngle;
-  const startTime = performance.now();
+  const targetAngle    = currentAngle + extraRotations;
+  const duration       = 3000 + Math.random() * 1000;
+  const startAngle     = currentAngle;
+  const startTime      = performance.now();
 
   function easeOut(t) {
     return 1 - Math.pow(1 - t, 4);
   }
 
   function animate(now) {
-    const elapsed = now - startTime;
+    const elapsed  = now - startTime;
     const progress = Math.min(elapsed / duration, 1);
-    currentAngle = startAngle + (targetAngle - startAngle) * easeOut(progress);
+    currentAngle   = startAngle + (targetAngle - startAngle) * easeOut(progress);
 
     drawWheel(currentAngle);
 
@@ -145,7 +145,7 @@ function spin() {
       animFrame = requestAnimationFrame(animate);
     } else {
       currentAngle = targetAngle % (Math.PI * 2);
-      isSpinning = false;
+      isSpinning   = false;
       document.getElementById('spinBtn').classList.remove('spinning');
       showQuestion(pool);
     }
@@ -183,13 +183,13 @@ function showQuestion(pool) {
   else shownPesada.add(pick.idx);
 
   const badge = document.getElementById('qrBadge');
-  const text = document.getElementById('qrText');
-  const card = document.getElementById('questionCard');
+  const text  = document.getElementById('qrText');
+  const card  = document.getElementById('questionCard');
   const reveal = document.getElementById('questionReveal');
 
   badge.textContent = pick.cat === 'leve' ? '🍃 Leve' : '🌑 Pesada';
-  badge.className = 'qr-badge ' + pick.cat;
-  text.textContent = pick.q;
+  badge.className   = 'qr-badge ' + pick.cat;
+  text.textContent  = pick.q;
 
   card.style.animation = 'none';
   card.offsetHeight;
@@ -202,11 +202,11 @@ function showQuestion(pool) {
 function updateCounter() {
   const el = document.getElementById('questionsCounter');
   const total = currentCategory === 'leve' ? PERGUNTAS_LEVES.length
-    : currentCategory === 'pesada' ? PERGUNTAS_PESADAS.length
-      : PERGUNTAS_LEVES.length + PERGUNTAS_PESADAS.length;
-  const seen = currentCategory === 'leve' ? shownLeve.size
-    : currentCategory === 'pesada' ? shownPesada.size
-      : shownLeve.size + shownPesada.size;
+              : currentCategory === 'pesada' ? PERGUNTAS_PESADAS.length
+              : PERGUNTAS_LEVES.length + PERGUNTAS_PESADAS.length;
+  const seen  = currentCategory === 'leve' ? shownLeve.size
+              : currentCategory === 'pesada' ? shownPesada.size
+              : shownLeve.size + shownPesada.size;
 
   if (seen === 0) { el.textContent = ''; return; }
   el.textContent = `${seen} de ${total} perguntas respondidas`;
@@ -226,7 +226,7 @@ function showTab(id) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('tab-' + id).classList.add('active');
-  const tabMap = { roleta: 0, brincadeiras: 1, leves: 2, pesadas: 3 };
+  const tabMap = { roleta:0, brincadeiras:1, leves:2, pesadas:3 };
   document.querySelectorAll('.tab-btn')[tabMap[id]].classList.add('active');
   window.scrollTo({ top: document.querySelector('.nav-sticky').offsetTop, behavior: 'smooth' });
 }
@@ -262,9 +262,9 @@ function renderGames() {
 
 function toggleGame(i) {
   const instructions = document.getElementById(`instructions-${i}`);
-  const chevron = document.getElementById(`chevron-${i}`);
-  const card = document.getElementById(`game-${i}`);
-  const isOpen = instructions.classList.contains('open');
+  const chevron      = document.getElementById(`chevron-${i}`);
+  const card         = document.getElementById(`game-${i}`);
+  const isOpen       = instructions.classList.contains('open');
 
   document.querySelectorAll('.game-instructions').forEach(el => el.classList.remove('open'));
   document.querySelectorAll('.game-chevron').forEach(el => { el.style.transform = ''; });
@@ -279,19 +279,19 @@ function toggleGame(i) {
 
 // ── RENDER QUESTION LISTS ──
 function renderQuestions() {
-  const levesList = document.getElementById('levesList');
+  const levesList   = document.getElementById('levesList');
   const pesadasList = document.getElementById('pesadasList');
 
   levesList.innerHTML = PERGUNTAS_LEVES.map((q, i) => `
     <div class="question-item leve-item" style="animation-delay: ${i * 0.06}s">
-      <span class="q-num">${String(i + 1).padStart(2, '0')}</span>
+      <span class="q-num">${String(i+1).padStart(2,'0')}</span>
       <p>${q}</p>
     </div>
   `).join('');
 
   pesadasList.innerHTML = PERGUNTAS_PESADAS.map((q, i) => `
     <div class="question-item pesada-item" style="animation-delay: ${i * 0.06}s">
-      <span class="q-num">${String(i + 1).padStart(2, '0')}</span>
+      <span class="q-num">${String(i+1).padStart(2,'0')}</span>
       <p>${q}</p>
     </div>
   `).join('');
@@ -304,18 +304,18 @@ function initHeroCanvas() {
   let particles = [];
 
   function resize() {
-    canvas.width = window.innerWidth;
+    canvas.width  = window.innerWidth;
     canvas.height = canvas.parentElement.offsetHeight;
   }
 
   class Particle {
     constructor() { this.reset(); }
     reset() {
-      this.x = Math.random() * canvas.width;
-      this.y = Math.random() * canvas.height;
-      this.r = Math.random() * 1.5 + 0.3;
-      this.vx = (Math.random() - 0.5) * 0.3;
-      this.vy = -Math.random() * 0.4 - 0.1;
+      this.x     = Math.random() * canvas.width;
+      this.y     = Math.random() * canvas.height;
+      this.r     = Math.random() * 1.5 + 0.3;
+      this.vx    = (Math.random() - 0.5) * 0.3;
+      this.vy    = -Math.random() * 0.4 - 0.1;
       this.alpha = Math.random() * 0.5 + 0.1;
       this.color = Math.random() > 0.5 ? '#c8973a' : '#ffffff';
     }
